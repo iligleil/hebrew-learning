@@ -663,7 +663,7 @@
 			<div class="canvas" style="margin: 0 auto; width: 800px;">
 				<div id="stickyControls">
 					<div style="text-align: center; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px;">
-						<button id="audioControl" onclick="toggleSpeech()" style="height: 60px;white-space: nowrap;padding: 15px 30px; font-size: 20px; cursor: pointer; border-radius: 10px; background: #2e7d32; color: white; border: none;">
+						<button id="audioControl" onclick="resumeAudioContext(); toggleSpeech()" style="height: 60px;white-space: nowrap;padding: 15px 30px; font-size: 20px; cursor: pointer; border-radius: 10px; background: #2e7d32; color: white; border: none;">
 							▶ Озвучить всё
 						</button>
 						<button id="randomControl" onclick="toggleRandom()" style="display: flex; align-items: center; justify-content: center;width: 320px;height: 60px;white-space: nowrap;padding: 15px 30px; font-size: 20px; cursor: pointer; border-radius: 10px; background: #1a237e; color: white; border: none;">
@@ -702,6 +702,19 @@
 	</main>
 </div>
 <script>
+	// Генератор тишины (base64 звук, чтобы не грузить лишние файлы)
+	const audioSilence = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=");
+	audioSilence.loop = true;
+	
+	function resumeAudioContext() {
+	    // Активируем системный звук
+	    if (typeof AudioContext !== 'undefined') {
+	        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+	        if (ctx.state === 'suspended') ctx.resume();
+	    }
+	    // Запускаем бесконечный бесшумный трек
+	    audioSilence.play().catch(() => {}); 
+	}
 	function openTab(tabId) {
 			document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
 			document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
@@ -800,7 +813,7 @@
 				<td style="border: 1px solid #ccc; padding: 10px; ${blurStates[1] ? 'filter: blur(5px);' : ''}">${word.trans}</td>
 				<td style="border: 1px solid #ccc; padding: 10px; ${blurStates[2] ? 'filter: blur(5px);' : ''}">${word.ru}</td>
 				<td style="border: 1px solid #ccc; padding: 10px; text-align: center;">
-					<button onclick="speakOne(${index})" style="cursor: pointer; background: none; border: none; font-size: 20px;">🔊</button>
+					<button onclick="resumeAudioContext(); speakOne(${index})" style="cursor: pointer; background: none; border: none; font-size: 20px;">🔊</button>
 				</td>
 			`;
 			container.appendChild(row);
@@ -1054,4 +1067,5 @@
 	setTimeout(updateStickyOffset, 500);
 </script>
 </body>
+
 </html>
