@@ -748,53 +748,59 @@
             el.innerHTML = icons[key];
         });
     });
-	// Данные слов (добавьте сюда свои 30 слов)
-	const myWords = [
-        { he: "יָכוֹל", he_voice: "יכול", trans: "яхоль", ru: "Могу" },
-		{ he: "צָרִיךְ", he_voice: "צריך", trans: "царих", ru: "Нужно" },
-		{ he: "עוֹשֶׂה", he_voice: "עושה", trans: "осэ", ru: "Делаю" },
-		{ he: "רוֹאֶה", he_voice: "רואה", trans: "роэ", ru: "Вижу" },
-		{ he: "שׁוֹמֵעַ", he_voice: "שומע", trans: "шомэа", ru: "Слышу" },
-		{ he: "לָקַחַת", he_voice: "לקחת", trans: "лакахат", ru: "Взять" },
-		{ he: "לָלֶכֶת", he_voice: "ללכת", trans: "лалехет", ru: "Идти" },
-		{ he: "לַחְזוֹר", he_voice: "לחזור", trans: "лахзор", ru: "Возвращаться" },
-		{ he: "לֶאֱכוֹל", he_voice: "לאכול", trans: "леехоль", ru: "Кушать" },
-		{ he: "אֲרוּחַת צָהֳרַיִם", he_voice: "ארוחת צהריים", trans: "арухат цоорайм", ru: "Обед" },
-		{ he: "לָקוּם", he_voice: "לקום", trans: "лакум", ru: "Вставать" },
-		{ he: "לִנְסוֹעַ", he_voice: "לנסוע", trans: "линсоа", ru: "Ехать" },
-		{ he: "רֶבַע", he_voice: "רבע", trans: "рева", ru: "Четверть" },
-		{ he: "חֵצִי", he_voice: "חצי", trans: "хаци", ru: "Половина" },
-		{ he: "לָצֵאת", he_voice: "לצאת", trans: "лацет", ru: "Выходить" },
-		{ he: "לִקְנוֹת", he_voice: "לקנות", trans: "ликнот", ru: "Покупать" },
-		{ he: "יָקָר", he_voice: "יקר", trans: "якар", ru: "Дорогой", ru_voice: "дарагОй" },
-		{ he: "זוֹל", he_voice: "זול", trans: "золь", ru: "Дешевый" },
-		{ he: "שָׁבוּעַ", he_voice: "שבוע", trans: "шавуа", ru: "Неделя" },
-		{ he: "חוֹדֶשׁ", he_voice: "חודש", trans: "ходэш", ru: "Месяц" },
-		{ he: "לַעֲזוֹר", he_voice: "לעזור", trans: "лаазор", ru: "Помогать" },
-		{ he: "לִשְׁאוֹל", he_voice: "לשאול", trans: "лиш-оль", ru: "Спросить" },
-		{ he: "לוֹמר", he_voice: "לומר", trans: "ломар", ru: "Сказать" },
-		{ he: "אוֹמֵר", he_voice: "אומר", trans: "омер", ru: "Говорю" },
-		{ he: "לָדַעַת", he_voice: "לדעת", trans: "ладат", ru: "Знать" },
-		{ he: "הָיָה", he_voice: "היה", trans: "ая", ru: "Был" },
-		{ he: "בְּוַדַּאי", he_voice: "בוודאי", trans: "бэ-вадай", ru: "Конечно" },
-		{ he: "כַּמּוּבָן", he_voice: "כמובן", trans: "камуван", ru: "Конечно" },
-        { he: "לִפְּנֵי", he_voice: "לפני", trans: "лифней", ru: "Перед" },
-		{ he: "לִפְעָמִים", he_voice: "לפעמים", trans: "лиф-ами́м", ru: "Иногда" },
-		{ he: "לְהַגִּיעַ", he_voice: "להגיע", trans: "ле-аги́а", ru: "Прибывать" },
-		{ he: "לְהַתְחִיל", he_voice: "להתחיל", trans: "ле-атхи́ль", ru: "Начинать" },
-		{ he: "שִׁיעוּר", he_voice: "שיעור", trans: "ши-у́р", ru: "Урок" },
-		{ he: "לִלְמוֹד", he_voice: "ללמוד", trans: "ли-льмо́д", ru: "Заниматься" },
-		{ he: "קָשֶׁה", he_voice: "קשה", trans: "ка-шэ́", ru: "Трудный" },
-		{ he: "עָיֵיף", he_voice: "עייף", trans: "а-е́ф", ru: "Усталый" },
-		{ he: "לָתֵת", he_voice: "לתת", trans: "ля-тэ́т", ru: "Давать" },
-		{ he: "לְחַפֵּשׂ", he_voice: "לחפש", trans: "ле-ха-пэ́с", ru: "Искать" },
-		{ he: "נְסִיעָה", he_voice: "נסיעה", trans: "нэ-си-а́", ru: "Путешествие" },
-		{ he: "מְנַהֵל", he_voice: "מנהל", trans: "ме-на-э́ль", ru: "Директор" },
-		{ he: "הוֹרִים", he_voice: "הורים", trans: "о-ри́м", ru: "Родители" },
-		{ he: "לַחְשׁוֹב", he_voice: "לחשוב", trans: "ля-хшо́в", ru: "Думать" },
-		{ he: "לִכְתּוֹב", he_voice: "לכתוב", trans: "ли-хто́в", ru: "писать" }
-    ];
-		function shuffleTable() {
+
+	let myWords = [];
+	
+	async function loadWordsFromSheet() {
+		const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUqglLjSkwRZAwao-7Rx32nHa1f1MLxY_s_SJTL4ByUMk1Mtx3FRYZgbkoxnOzts3m5vOji5tg1s-6/pub?gid=0&single=true&output=csv"+ "&cacheBuster=" + new Date().getTime();;
+		
+		// Добавляем прокси только для локальной разработки, если fetch не проходит
+		// Но для начала попробуем обычный запрос
+		try {
+			const response = await fetch(csvUrl);
+			if (!response.ok) throw new Error('Network response was not ok');
+			const data = await response.text();
+			
+			// Парсим CSV (учитываем переносы строк и запятые)
+			const rows = data.split(/\r?\n/).filter(row => row.trim() !== "");
+			const contentRows = rows.slice(1); // Убираем заголовки
+			
+			myWords = contentRows.map(row => {
+				// Разделяем по запятым, но игнорируем те, что внутри кавычек
+				const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+				
+				const clean = (val) => val ? val.replace(/^"|"$/g, '').trim() : "";
+
+				return {
+					ru: clean(cols[0]),
+					ru_voice: clean(cols[1]) || clean(cols[0]),
+					he: clean(cols[2]),
+					he_voice: clean(cols[3]),
+					trans: clean(cols[4])
+				};
+			}).filter(word => word.ru);
+
+			console.log("Загружено слов:", myWords.length);
+			
+				// ВЫЗЫВАЕМ ТВОЮ ФУНКЦИЮ ОТРИСОВКИ:
+			initVocab(); 
+			
+			// И обновляем отступы кнопок, раз таблица изменилась
+			setTimeout(updateStickyOffset, 100);
+			
+		} catch (error) {
+			console.error("Ошибка:", error);
+			const body = document.getElementById('vocabBody');
+			if (body) {
+            body.innerHTML = `<tr><td colspan="4" style="color:red;text-align:center;">Ошибка загрузки: ${error.message}</td></tr>`;
+			}
+		}
+	}
+
+	// Запускаем загрузку при старте страницы
+	loadWordsFromSheet();
+	
+	function shuffleTable() {
 		// 1. Алгоритм перемешивания массива
 		for (let i = myWords.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
@@ -872,7 +878,7 @@
             body.innerHTML += row;
         });
     }
-    initVocab();
+
 	
 	const keepAliveMsg = new SpeechSynthesisUtterance(" ");
     keepAliveMsg.volume = 0.01; // Почти ноль, но не полный 0 (некоторые системы игнорируют 0)
