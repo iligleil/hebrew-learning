@@ -703,7 +703,11 @@
 </div>
 <script>
 	let silentSource = null; // Глобальная переменная для управления тишиной
-
+	
+	function removeNiqqud(text) {
+		return text.replace(/[\u0591-\u05C7]/g, "");
+	}
+	
 	function resumeAudioContext() {
 		const AudioContext = window.AudioContext || window.webkitAudioContext;
 		const ctx = new AudioContext();
@@ -775,7 +779,7 @@
 					ru: clean(cols[0]),
 					ru_voice: clean(cols[1]) || clean(cols[0]),
 					he: clean(cols[2]),
-					he_voice: clean(cols[3]),
+					he_voice: clean(removeNiqqud(cols[1].trim())), //берем значения из he и чистим
 					trans: clean(cols[4])
 				};
 			}).filter(word => word.ru);
