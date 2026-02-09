@@ -12,6 +12,14 @@ const silencePlayer = document.getElementById('silenceLoop');
 
 let voices = [];
 let myWords = [];
+
+// Патч для борьбы с "засыпанием" синтезатора
+setInterval(() => {
+    if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+        window.speechSynthesis.pause();
+        window.speechSynthesis.resume();
+    }
+}, 10000); // Раз в 10 секунд "встряхиваем" очередь
 	
 const icons = {
 	'fem-s': '&#129318;',              // Фейспалм женщина
@@ -250,11 +258,19 @@ function speakLoop() {
 	// 3. Запуск воспроизведения
 	if (isReverse) {
 		currentMsgRu.onend = () => { if (isSpeaking) synth.speak(currentMsgHe); };
+		currentMsgRu.onerror = () => { if (isSpeaking) synth.speak(currentMsgHe); };
+		
 		currentMsgHe.onend = prepareNext;
+		currentMsgHe.onerror = prepareNext;
+		
 		synth.speak(currentMsgRu);
 	} else {
 		currentMsgHe.onend = () => { if (isSpeaking) synth.speak(currentMsgRu); };
+		currentMsgHe.onerror = () => { if (isSpeaking) synth.speak(currentMsgRu); };
+		
 		currentMsgRu.onend = prepareNext;
+		currentMsgRu.onerror = prepareNext;
+		
 		synth.speak(currentMsgHe);
 	}
 }
@@ -305,17 +321,21 @@ function speakOne(index) {
 
 	if (isReverse) {
 		// РЕЖИМ: Русский -> Иврит
-		currentMsgRu.onend = () => { 
-			synth.speak(currentMsgHe); 
-		};
+		currentMsgRu.onend = () => {synth.speak(currentMsgHe);};
+		currentMsgRu.onerror = () => {synth.speak(currentMsgHe); };
+		
 		currentMsgHe.onend = finalizeOne;
+		currentMsgHe.onerror = finalizeOne;
+		
 		synth.speak(currentMsgRu);
 	} else {
 		// РЕЖИМ: Иврит -> Русский
-		currentMsgHe.onend = () => { 
-			synth.speak(currentMsgRu); 
-		};
+		currentMsgHe.onend = () => {synth.speak(currentMsgRu);};
+		currentMsgHe.onerror = () => {synth.speak(currentMsgRu);};
+		
 		currentMsgRu.onend = finalizeOne;
+		currentMsgRu.onerror = finalizeOne;
+		
 		synth.speak(currentMsgHe);
 	}
 }
