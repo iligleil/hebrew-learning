@@ -1,0 +1,310 @@
+ body { font-family: 'Arial', sans-serif; background: #f0f0f0; margin: 0; padding: 0px; }     
+ h1 { text-align: center; font-size: 20px; margin-bottom: 15px; color: #333; font-style: italic; }
+	
+.main-layout {
+	display: flex;
+	align-items: flex-start; /* Чтобы контент не растягивал меню по высоте насильно */
+}
+
+/* Боковое меню */
+.side-menu {
+	position: sticky;
+	top: 0;
+	width: 220px; /* Фиксированная ширина левой панели */
+	height: 100vh; /* Высота на весь экран */
+	background-color: #f8f9fa; /* Светлый фон для контраста */
+	border-right: 1px solid #ddd;
+	padding: 20px 15px;
+	box-sizing: border-box;
+	z-index: 1000;
+}
+
+/* Перестраиваем кнопки в колонку */
+.tabs-nav {
+	display: flex;
+	flex-direction: column; /* Кнопки друг под другом */
+	gap: 10px;
+}
+
+.tabs-nav {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 30px;
+}
+
+/* Правая часть с таблицами */
+.content-area {
+	flex: 1; /* Занимает всё оставшееся пространство */
+	padding: 20px;
+	min-width: 0; /* Чтобы таблицы не распирали экран */
+}
+
+.tab-button {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 15px;
+	margin-bottom: 8px;
+	border: none;
+	border-radius: 8px;
+	background-color: #ffffff;
+	color: #333;
+	cursor: pointer;
+	font-size: 18px;
+	font-weight: bold;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Легкая тень */
+	text-align: center;
+	box-sizing: border-box;
+}
+
+.tab-button.active {
+	background-color: #1976d2;
+	color: white;
+	font-weight: bold;
+	box-shadow: 0 4px 10px rgba(25, 118, 210, 0.3);
+}
+
+.tab-button:hover {
+	background-color: #e3f2fd; /* Светло-голубой фон */
+	color: #1976d2;            /* Синий текст */
+	transform: translateX(5px); /* Кнопка чуть-чуть сдвигается вправо */
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.tab-content {
+	display: none; /* Прячем все вкладки по умолчанию */
+}
+
+.tab-content.active {
+	display: block; /* Показываем только активную */
+}
+
+.main-container { 
+	display: flex; 
+	flex-wrap: wrap; 
+	justify-content: center; 
+	align-items: flex-start; 
+	gap: 30px; 
+	margin: 0 auto;
+	width: 100%;
+}
+
+.canvas { 
+	background: white; 
+	padding: 20px; 
+	border: 1px solid #999; 
+	box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+	flex: 0 0 auto; /* Не даем блоку сжиматься или растягиваться */
+	width: fit-content; 
+	position: relative; 
+	overflow: visible;
+}
+
+.left-panel .time-section { 
+	width: 835px; /* 4 колонки по 210px */
+	margin-bottom: 20px; 
+	border: 2px solid #000;        
+	box-sizing: border-box;
+}
+
+.right-panel .time-section { 
+	width: 660px; /* 2 колонки по 330px */
+	margin-bottom: 20px; 
+	border: 2px solid #000; 
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+.header-row { 
+	display: flex; 
+	justify-content: space-between; 
+	align-items: center; 
+	padding: 6px 15px; 
+	border-bottom: 2px solid #000; 
+	font-weight: bold; 
+	font-size: 19px; 
+	background-color: #fff; 
+	box-sizing: border-box;
+	width: 100%;
+}
+
+table { 
+	border-collapse: collapse; 
+	table-layout: fixed; 
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: none; /* Убираем рамку таблицы, работаем рамкой секции */
+}
+
+td { 
+	padding: 0; 
+	box-sizing: border-box; 
+	border: 1px solid #000;
+}
+
+td:first-child { border-left: none; }
+td:last-child { border-right: none; }
+tr:last-child td { border-bottom: none; }
+
+.left-panel td { width: 207px; height: 65px; }
+.right-panel td { width: 330px; height: 90px; }
+
+.cell-content { 
+	display: flex; 
+	height: 100%; 
+	align-items: center; 
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.verb-part { flex: 1; text-align: center; white-space: nowrap; padding: 2px 5px; }
+
+.pronoun-part { 
+	width: 85px; 
+	border-left: 1px solid #000; 
+	margin-left: -1px; /* Плотная стыковка линии */
+	height: 100%; 
+	display: flex; 
+	align-items: center; 
+	justify-content: center; 
+	text-align: center; 
+	font-size: 24px; 
+	line-height: 1.1; 
+}
+
+.first-pers { background-color: rgb(227, 213, 175) !important; }
+.fem-sing { background-color: rgb(237, 160, 154); }
+.fem-plur { background-color: rgb(235, 178, 174); }
+.masc-sing { background-color: rgb(144, 228, 245); }
+.masc-plur { background-color: rgb(173, 226, 237); }
+.grad-plur { background: linear-gradient(.25turn, rgb(235, 178, 174) 40%,rgb(173, 226, 237) 60%); }
+.grad-sing { background: linear-gradient(.25turn, rgb(237, 160, 154) 40%, rgb(144, 228, 245) 60%); }
+
+.highlight { font-weight: bold; }
+.fem-sing .highlight, .fem-plur .highlight { color: #1a237e; }
+.masc-sing .highlight, .masc-plur .highlight { color: #d32f2f; }
+
+.hebrew-text { direction: rtl; unicode-bidi: bidi-override; font-family: 'Arial', sans-serif; font-size: 28px; color: #333; }
+.right-panel .hebrew-text { font-size: 34px; }
+
+.emoji { font-size: 34px; text-align: center; display: block; padding: 2px 0; line-height: 1; }
+.transcription { display: block; font-size: 25px; color: #444; margin-top: 2px; font-weight: normal; }
+.first-table td { height: 30px; vertical-align: middle; border: 1px solid #000; padding: 0; }
+.second-table td { height: 30px; vertical-align: middle; border: 1px solid #000; padding: 0; }
+
+/* Стиль для подсвеченной строки */
+.speaking-now {
+	background-color: #fff176 !important; /* Ярко-желтый цвет */
+	transition: background-color 0.3s ease;
+}
+
+/* Стиль кнопки в строке */
+.row-speak-btn {
+	cursor: pointer;
+	background: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 2px 8px;
+	font-size: 16px;
+}
+
+.row-speak-btn:hover {
+	background-color: #e0e0e0;
+}
+
+/* Стили для кликабельных заголовков */
+th {
+cursor: pointer;
+user-select: none;
+background: #f4f4f4 !important; 
+background-color: #eee !important;
+padding: 12px 10px;
+border: 1px solid #ccc !important; 
+text-align: center;
+position: sticky;
+top: var(--offset, 100px);
+z-index: 100;
+outline: 1px solid #ccc;
+}
+
+th:hover::after {
+	content: " 👁️";
+	font-size: 14px;
+	position: absolute;
+	right: 5px;
+}
+
+#stickyControls {
+	position: sticky;
+	top: 0;
+	z-index: 101; /* Кнопки ВСЕГДА сверху */
+	background: white; /* Чтобы таблица не просвечивала */
+	padding: 10px;
+	border-bottom: 10px;
+}
+#wordsTable thead th {
+	position: sticky;
+	top: var(--offset, 650px); /* Замирает СРАЗУ под кнопками */
+	z-index: 90; /* Чуть ниже кнопок */
+	background: #eee !important;
+}
+
+/* Если у ячейки в стиле прописан блюр, при наведении принудительно его убираем */
+#wordsTable td:hover {
+	filter: blur(0) !important;
+	transition: filter 0.2s;
+}
+
+#wordsTable {
+	border-collapse: separate;
+	border-spacing: 0;
+	width: 100%;
+}
+
+#wordsTable th {
+	position: sticky;
+	top: var(--offset, 180px); 
+	z-index: 100;
+	background: #eee !important;
+	border: 1px solid #ccc; 
+	padding: 10px;
+}
+
+/* Выравнивание текста в таблице словаря */
+#wordsTable td {
+	text-align: center;
+	vertical-align: middle;
+	height: 40px; /* Немного увеличим высоту для удобства */
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+
+#wordsTable tbody tr:last-child td {
+	border-bottom: 1px solid #000 !important;
+}
+
+/* СТИЛИ ИЗ СЕРЕДИНЫ КОДА */
+.prep-table { border-collapse: collapse; table-layout: fixed; width: 100%; }      
+.prep-table .hebrew-text { font-size: 24px; line-height: 1; }
+.prep-table .transcription { font-size: 14px; margin-top: 2px; font-weight: normal; color: #808080; }
+
+/* Стили выделения как в первой вкладке */
+.highlight { font-weight: bold; }
+.masc-sing .highlight, .masc-plur .highlight { color: #d32f2f; } /* Красный на голубом */
+.fem-sing .highlight, .fem-plur .highlight { color: #5a65d1; }   /* Синий на розовом */
+.first-pers .highlight { color: #d32f2f; } /* Для "Ани" тоже красный для контраста */
+
+.first-pers { background-color: rgb(227, 213, 175) !important; }
+.header-cell { text-align: center; padding: 15px; font-weight: bold; font-size: 24px; }
+.side-cell { background: #f9f9f9; padding: 5px 8px; font-size: 14px; text-align: center; width: 95px; }
+
+.prep-name-cell { background: #eee; color: #333; width: 60px; font-size: 24px; text-align: center; font-weight: bold; border: 1px solid #000; }
+.active-prep { background: #eeeeee !important; color: #  !important; }
+
+.prep-table .cell-content { justify-content: center; flex-direction: column; text-align: center; display: flex; width: 100%; height: 100%; }
+.prep-table td { height: 35px; vertical-align: middle; border: 1px solid #000; padding: 0; }	
