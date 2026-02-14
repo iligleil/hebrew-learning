@@ -1,392 +1,778 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8"> <!-- http-equiv="refresh" content="3" -->
-    <title>Знаешь что такое безумие?</title>
-	<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<div class="main-layout">
-	<nav class="side-menu">
-		<div class="tabs-nav">
-			<button class="tab-button active" onclick="openTab('verbs')">Глаголы</button>
-			<button class="tab-button" onclick="openTab('prepositions')">Предлоги</button>
-			<button class="tab-button" onclick="openTab('vocabulary')">Слова</button>
-		</div>
-	</nav>
-	<main class="content-area">
-		<div id="verbs" class="tab-content active">
-			<div class="main-container">
-				
-				<div class="canvas left-panel">
-					<h1>Спряжение глаголов (структура)</h1>
-
-					<div class="time-section">
-						<div class="header-row"><span>Настоящее время</span><span class="hebrew-text">הוֹוֶה</span></div>
-						<table class="first-table">
-							<tr>
-								<td class="fem-plur"><span class="emoji fem-p"></span></td><td class="masc-plur"><span class="emoji masc-p"></span></td><td class="fem-sing"><span class="emoji fem-s"></span></td><td class="masc-sing"><span class="emoji masc-s"></span></td>
-							</tr>
-							<tr>
-								<td class="fem-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">וֹת</span></div><div class="pronoun-part">אנחנו<br>אתן<br>הן</div></div></td>
-								<td class="masc-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">יִם</span></div><div class="pronoun-part">אנחנו<br>אתם<br>הם</div></div></td>
-								<td class="fem-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">ָה/ת</span></div><div class="pronoun-part">אני<br>את<br>היא</div></div></td>
-								<td class="masc-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□</span></div><div class="pronoun-part">אני<br>אתה<br>הוא</div></div></td>
-							</tr>
-						</table>
+   <head>
+      <meta charset="UTF-8">
+      <!-- http-equiv="refresh" content="3" -->
+      <title>Знаешь что такое безумие?</title>
+      <link rel="stylesheet" href="style.css">
+   </head>
+   <body>
+      <div class="main-layout">
+         <nav class="side-menu">
+            <div class="tabs-nav">
+               <button class="tab-button active" onclick="openTab('verbs')">Глаголы</button>
+               <button class="tab-button" onclick="openTab('prepositions')">Предлоги</button>
+               <button class="tab-button" onclick="openTab('vocabulary')">Слова</button>
+            </div>
+         </nav>
+         <main class="content-area">
+            <div id="verbs" class="tab-content active">
+               <div class="main-container">
+                  <div class="canvas left-panel">
+                     <h1>Спряжение глаголов (структура)</h1>
+                     <div class="time-section">
+                        <div class="header-row"><span>Настоящее время</span><span class="hebrew-text">הוֹוֶה</span></div>
+                        <table class="first-table">
+                           <tr>
+                              <td class="fem-plur"><span class="emoji fem-p"></span></td>
+                              <td class="masc-plur"><span class="emoji masc-p"></span></td>
+                              <td class="fem-sing"><span class="emoji fem-s"></span></td>
+                              <td class="masc-sing"><span class="emoji masc-s"></span></td>
+                           </tr>
+                           <tr>
+                              <td class="fem-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">וֹת</span></div>
+                                    <div class="pronoun-part">אנחנו<br>אתן<br>הן</div>
+                                 </div>
+                              </td>
+                              <td class="masc-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">יִם</span></div>
+                                    <div class="pronoun-part">אנחנו<br>אתם<br>הם</div>
+                                 </div>
+                              </td>
+                              <td class="fem-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">ָה/ת</span></div>
+                                    <div class="pronoun-part">אני<br>את<br>היא</div>
+                                 </div>
+                              </td>
+                              <td class="masc-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□</span></div>
+                                    <div class="pronoun-part">אני<br>אתה<br>הוא</div>
+                                 </div>
+                              </td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="time-section">
+                        <div class="header-row"><span>Прошедшее время</span><span class="hebrew-text">עָבַר</span></div>
+                        <table class="first-table">
+                           <tr>
+                              <td class="fem-plur"><span class="emoji fem-p"></span></td>
+                              <td class="masc-plur"><span class="emoji masc-p"></span></td>
+                              <td class="fem-sing"><span class="emoji fem-s"></span></td>
+                              <td class="masc-sing"><span class="emoji masc-s"></span></td>
+                           </tr>
+                           <tr>
+                              <td colspan="2" class="grad-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">נוּ</span></span></div>
+                                    <div class="pronoun-part">אנחנו</div>
+                                 </div>
+                              </td>
+                              <td colspan="2" class="grad-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">תִּי</span></span></div>
+                                    <div class="pronoun-part">אני</div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="fem-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">תֶּן</span></div>
+                                    <div class="pronoun-part">אתן</div>
+                                 </div>
+                              </td>
+                              <td class="masc-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">תֶּם</span></div>
+                                    <div class="pronoun-part">אתם</div>
+                                 </div>
+                              </td>
+                              <td class="fem-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">תְּ</span></div>
+                                    <div class="pronoun-part">את</div>
+                                 </div>
+                              </td>
+                              <td class="masc-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">תָּ</span></div>
+                                    <div class="pronoun-part">אתה</div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="fem-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">וּ</span></div>
+                                    <div class="pronoun-part">הן</div>
+                                 </div>
+                              </td>
+                              <td class="masc-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">וּ</span></div>
+                                    <div class="pronoun-part">הם</div>
+                                 </div>
+                              </td>
+                              <td class="fem-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">ָה</span></div>
+                                    <div class="pronoun-part">היא</div>
+                                 </div>
+                              </td>
+                              <td class="masc-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□</span></div>
+                                    <div class="pronoun-part">הוא</div>
+                                 </div>
+                              </td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="time-section">
+                        <div class="header-row"><span>Будущее время</span><span class="hebrew-text">עָתִיד</span></div>
+                        <table class="first-table">
+                           <tr>
+                              <td class="fem-plur"><span class="emoji fem-p"></span></td>
+                              <td class="masc-plur"><span class="emoji masc-p"></span></td>
+                              <td class="fem-sing"><span class="emoji fem-s"></span></td>
+                              <td class="masc-sing"><span class="emoji masc-s"></span></td>
+                           </tr>
+                           <tr>
+                              <td colspan="2" class="grad-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text"><span class="highlight">נ</span>□□□</span></div>
+                                    <div class="pronoun-part">אנחנו</div>
+                                 </div>
+                              </td>
+                              <td colspan="2" class="grad-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text"><span class="highlight">א</span>□□□</span></div>
+                                    <div class="pronoun-part">אני</div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="fem-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text"><span class="highlight">ת</span>□□□<span class="highlight">וּ</span></span></div>
+                                    <div class="pronoun-part">אתן</div>
+                                 </div>
+                              </td>
+                              <td class="masc-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text"><span class="highlight">ת</span>□□□<span class="highlight">וּ</span></span></div>
+                                    <div class="pronoun-part">אתם</div>
+                                 </div>
+                              </td>
+                              <td class="fem-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text"><span class="highlight">ת</span>□□□<span class="highlight">ִי</span></span></div>
+                                    <div class="pronoun-part">את</div>
+                                 </div>
+                              </td>
+                              <td class="masc-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text"><span class="highlight">ת</span>□□□</span></div>
+                                    <div class="pronoun-part">אתה</div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="fem-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text"><span class="highlight">י</span>□□□<span class="highlight">וּ</span></span></div>
+                                    <div class="pronoun-part">הן</div>
+                                 </div>
+                              </td>
+                              <td class="masc-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text"><span class="highlight">י</span>□□□<span class="highlight">וּ</span></span></div>
+                                    <div class="pronoun-part">הם</div>
+                                 </div>
+                              </td>
+                              <td class="fem-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text"><span class="highlight">ת</span>□□□</span></div>
+                                    <div class="pronoun-part">היא</div>
+                                 </div>
+                              </td>
+                              <td class="masc-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text"><span class="highlight">י</span>□□□</span></div>
+                                    <div class="pronoun-part">הוא</div>
+                                 </div>
+                              </td>
+                           </tr>
+                        </table>
+                     </div>
+                     <div class="time-section">
+                        <div class="header-row"><span>Повелительное наклонение</span><span class="hebrew-text">צִיוּוִּי</span></div>
+                        <table class="first-table">
+                           <tr>
+                              <td class="fem-plur"><span class="emoji fem-p"></span></td>
+                              <td class="masc-plur"><span class="emoji masc-p"></span></td>
+                              <td class="fem-sing"><span class="emoji fem-s"></span></td>
+                              <td class="masc-sing"><span class="emoji masc-s"></span></td>
+                           </tr>
+                           <tr>
+                              <td class="fem-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">וּ</span></span></div>
+                                    <div class="pronoun-part">אתן</div>
+                                 </div>
+                              </td>
+                              <td class="masc-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">וּ</span></div>
+                                    <div class="pronoun-part">אתם</div>
+                                 </div>
+                              </td>
+                              <td class="fem-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">ִי</span></span></div>
+                                    <div class="pronoun-part">את</div>
+                                 </div>
+                              </td>
+                              <td class="masc-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part"><span class="hebrew-text">□□□</span></div>
+                                    <div class="pronoun-part">אתה</div>
+                                 </div>
+                              </td>
+                           </tr>
+                        </table>
+                     </div>
+                  </div>
+                  <div class="canvas right-panel">
+                     <h1>Модели Пааль</h1>
+                     <div class="time-section">
+                        <div class="header-row">
+                           <span>Инфинитив</span>
+                           <span class="hebrew-text" style="color: #1a237e">לִ<span style="color: #333">□□</span>וֹ<span style="color: #333">□</span></span>
+                        </div>
+                        <table class="second-table">
+                           <tr>
+                              <td class="fem-sing"><span class="emoji fem-s"></span></td>
+                              <td class="masc-sing"><span class="emoji masc-s"></span></td>
+                           </tr>
+                           <tr>
+                              <td class="fem-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part">
+                                       <span class="hebrew-text">□<span class="highlight">וֹ</span>□<span class="highlight">ֶ</span>□<span class="highlight">ֶת</span></span>
+                                       <span class="transcription"><span class="highlight">1</span>о<span class="highlight">2</span>э́<span class="highlight">3</span>эт</span>
+                                    </div>
+                                    <div class="pronoun-part">אני<br>את<br>היא</div>
+                                 </div>
+                              </td>
+                              <td class="masc-sing">
+                                 <div class="cell-content">
+                                    <div class="verb-part">
+                                       <span class="hebrew-text">□<span class="highlight">וֹ</span>□<span class="highlight">ֵ</span>□</span>
+                                       <span class="transcription"><span class="highlight">1</span>о<span class="highlight">2</span>э́<span class="highlight">3</span></span>
+                                    </div>
+                                    <div class="pronoun-part">אני<br>אתה<br>הוא</div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="fem-plur"><span class="emoji fem-p"></span></td>
+                              <td class="masc-plur"><span class="emoji masc-p"></span></td>
+                           </tr>
+                           <tr>
+                              <td class="fem-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part">
+                                       <span class="hebrew-text">□<span class="highlight">וֹ</span>□□<span class="highlight">וֹת</span></span>
+                                       <span class="transcription"><span class="highlight">1</span>о<span class="highlight">23</span>о́т</span>
+                                    </div>
+                                    <div class="pronoun-part">אנחנו<br>אתן<br>הן</div>
+                                 </div>
+                              </td>
+                              <td class="masc-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part">
+                                       <span class="hebrew-text">□<span class="highlight">וֹ</span>□□<span class="highlight">ִים</span></span>
+                                       <span class="transcription"><span class="highlight">1</span>о<span class="highlight">23</span>и́м</span>
+                                    </div>
+                                    <div class="pronoun-part">אנחנו<br>אתם<br>הם</div>
+                                 </div>
+                              </td>
+                           </tr>
+                           <tr>
+                              <td class="fem-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part">
+                                       <div style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: bottom;">
+                                          <div style="color: #8e24aa; font-size: 18px; font-weight: bold; margin-bottom: -3px;">ע , ח , ה</div>
+                                          <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: -2px;">
+                                             <span style="font-size: 14px; line-height: 1; color:#333">┕┳┙</span>
+                                             <span style="font-size: 14px; line-height: 0.8; margin-top: -2px; color:#333">↓</span>
+                                          </div>
+                                          <div class="hebrew-text" style="font-size: 28px;">
+                                             <span class="highlight">□וֹ</span><span><span style="color: #8e24aa;">אַ</span><span>□</span><span class="highlight">וֹת</span>
+                                          </div>
+                                       </div>
+                                       <span class="transcription"><span class="highlight">1</span>о<span class="highlight">2</span>а<span class="highlight">3</span>о́т</span>
+                                    </div>
+                                    <div class="pronoun-part">אנחנו<br>אתן<br>הן</div>
+                                 </div>
+                              </td>
+                              <td class="masc-plur">
+                                 <div class="cell-content">
+                                    <div class="verb-part">
+                                       <div style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: bottom;">
+                                          <div style="color: #8e24aa; font-size: 18px; font-weight: bold; margin-bottom: -3px;">ע , ח , ה</div>
+                                          <div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: -2px;">
+                                             <span style="font-size: 14px; line-height: 1; color:#333">┕┳┙</span>
+                                             <span style="font-size: 14px; line-height: 0.8; margin-top: -2px; color:#333">↓</span>
+                                          </div>
+                                          <div class="hebrew-text" style="font-size: 28px;">
+                                             <span>□</span><span class="highlight">וֹ</span><span style="color: #8e24aa;">אַ</span>□<span class="highlight">ִים</span>
+                                          </div>
+                                       </div>
+                                       <span class="transcription"><span class="highlight">1</span>о<span class="highlight">2</span>а<span class="highlight">3</span>и́м</span>
+                                    </div>
+                                    <div class="pronoun-part">אנחנו<br>אתם<br>הם</div>
+                                 </div>
+                              </td>
+                           </tr>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div id="prepositions" class="tab-content">
+               <div class="canvas" style="margin: 0 auto; width: fit-content;">
+                  <h1>Склонение предлогов (מילות יחס)</h1>
+                  <div class="time-section" style="width: 1350px; border: 2px solid #000;">
+                     <table class="prep-table">
+                        <tr>
+                           <td class="header-cell fem-plur"><span class="emoji fem-p"></span>הן</td>
+                           <td class="header-cell masc-plur"><span class="emoji masc-p"></span>הם</td>
+                           <td class="header-cell fem-sing"><span class="emoji fem-s"></span>היא</td>
+                           <td class="header-cell masc-sing"><span class="emoji masc-s"></span>הוא</td>
+                           <td class="header-cell fem-plur"><span class="emoji fem-p"></span>אתן</td>
+                           <td class="header-cell masc-plur"><span class="emoji masc-p"></span>אתם</td>
+                           <td class="header-cell grad-plur"><span class="emoji masc-p"></span>אנחנו</td>
+                           <td class="header-cell fem-sing"><span class="emoji fem-s"></span>את</td>
+                           <td class="header-cell masc-sing"><span class="emoji masc-s"></span>אתה</td>
+                           <td class="header-cell first-pers"><span class="emoji self-s"></span>אני</td>
+                           <td class="side-cell" style="font-size: 12px;width: 140px; font-weight: bold; background: #fff;">?</td>
+                           <td class="side-cell" style="font-size: 12px;width: 140px; font-weight: bold; background: #fff;">Перевод</td>
+                           <td class="prep-name-cell active-prep" style="font-size: 12px; background: #fff; color: #333;">Предлог</td>
+                        </tr>
+                        <tr>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">הֶן</span></span><span class="transcription">лаhэн</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">הֶם</span></span><span class="transcription">лаhэм</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">הּ</span></span><span class="transcription">ла</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">ל<span class="highlight">וֹ</span></span><span class="transcription">ло</span></div>
+                           </td>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">כֶן</span></span><span class="transcription">лахэн</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">כֶם</span></span><span class="transcription">лахэм</span></div>
+                           </td>
+                           <td class="grad-plur">
+                              <div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">נוּ</span></span><span class="transcription">ла́ну</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">ךְ</span></span><span class="transcription">лах</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">לְ<span class="highlight">ךָ</span></span><span class="transcription">леха́</span></div>
+                           </td>
+                           <td class="first-pers">
+                              <div class="cell-content"><span class="hebrew-text">לִ<span class="highlight">י</span></span><span class="transcription">ли</span></div>
+                           </td>
+                           <td class="side-cell">кому? чему?</td>
+                           <td class="side-cell">в, к, для, направление</td>
+                           <td class="prep-name-cell active-prep">ל</td>
+                        </tr>
+                        <tr>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">הֶן</span></span><span class="transcription">шелаhэн</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">הֶם</span></span><span class="transcription">шелаhэм</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">הּ</span></span><span class="transcription">шелá</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">שֶׁלּ<span class="highlight">וֹ</span></span><span class="transcription">шелó</span></div>
+                           </td>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">כֶן</span></span><span class="transcription">шелахэн</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">כֶם</span></span><span class="transcription">шелахэм</span></div>
+                           </td>
+                           <td class="grad-plur">
+                              <div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">נוּ</span></span><span class="transcription">шелáну</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">ךְ</span></span><span class="transcription">шелáх</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">שֶׁלְּ<span class="highlight">ךָ</span></span><span class="transcription">шелхá</span></div>
+                           </td>
+                           <td class="first-pers">
+                              <div class="cell-content"><span class="hebrew-text">שֶׁלִּ<span class="highlight">י</span></span><span class="transcription">шели</span></div>
+                           </td>
+                           <td class="side-cell">чей?</td>
+                           <td class="side-cell">принадлежность</td>
+                           <td class="prep-name-cell active-prep">של</td>
+                        </tr>
+                        <tr>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">אוֹתָ<span class="highlight">ן</span></span><span class="transcription">ота́н</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">אוֹתָ<span class="highlight">ם</span></span><span class="transcription">ота́м</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">אוֹתָ<span class="highlight">הּ</span></span><span class="transcription">ота́</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">אוֹת<span class="highlight">וֹ</span></span><span class="transcription">ото́</span></div>
+                           </td>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֶתְ<span class="highlight">כֶן</span></span><span class="transcription">этхэн</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֶתְ<span class="highlight">כֶם</span></span><span class="transcription">этхэм</span></div>
+                           </td>
+                           <td class="grad-plur">
+                              <div class="cell-content"><span class="hebrew-text">אוֹתָ<span class="highlight">נוּ</span></span><span class="transcription">ота́ну</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">אוֹתָ<span class="highlight">ךְ</span></span><span class="transcription">ота́х</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">אוֹתְ<span class="highlight">ךָ</span></span><span class="transcription">отха́</span></div>
+                           </td>
+                           <td class="first-pers">
+                              <div class="cell-content"><span class="hebrew-text">אוֹתִ<span class="highlight">י</span></span><span class="transcription">оти́</span></div>
+                           </td>
+                           <td class="side-cell">кого? что?</td>
+                           <td class="side-cell">прямое дополнение</td>
+                           <td class="prep-name-cell active-prep">את</td>
+                        </tr>
+                        <tr>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֶצְלָ<span class="highlight">ן</span></span><span class="transcription">эцла́н</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֶצְלָ<span class="highlight">ם</span></span><span class="transcription">эцла́м</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">אֶצְלָ<span class="highlight">הּ</span></span><span class="transcription">эцла́</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">אֶצְל<span class="highlight">וֹ</span></span><span class="transcription">эцло́</span></div>
+                           </td>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֶצְלְ<span class="highlight">כֶן</span></span><span class="transcription">эцлахэ́н</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֶצְלְ<span class="highlight">כֶם</span></span><span class="transcription">эцлахэ́м</span></div>
+                           </td>
+                           <td class="grad-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֶצְלֵ<span class="highlight">נוּ</span></span><span class="transcription">эцлейну</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">אֶצְלֵ<span class="highlight">ךְ</span></span><span class="transcription">эцлех</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">אֶצְלְ<span class="highlight">ךָ</span></span><span class="transcription">эцлеха́</span></div>
+                           </td>
+                           <td class="first-pers">
+                              <div class="cell-content"><span class="hebrew-text">אֶצְלִ<span class="highlight">י</span></span><span class="transcription">эцли́</span></div>
+                           </td>
+                           <td class="side-cell">у кого?</td>
+                           <td class="side-cell">у</td>
+                           <td class="prep-name-cell active-prep">אצל</td>
+                        </tr>
+                        <tr>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">הֶן</span></span><span class="transcription">баhэн</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">הֶם</span></span><span class="transcription">баhэм</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">הּ</span></span><span class="transcription">ба</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">בּ<span class="highlight">וֹ</span></span><span class="transcription">бо</span></div>
+                           </td>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">כֶן</span></span><span class="transcription">бахэн</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">כֶם</span></span><span class="transcription">бахэм</span></div>
+                           </td>
+                           <td class="grad-plur">
+                              <div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">נוּ</span></span><span class="transcription">ба́ну</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">ךְ</span></span><span class="transcription">бах</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">בְּ<span class="highlight">ךָ</span></span><span class="transcription">бэха́</span></div>
+                           </td>
+                           <td class="first-pers">
+                              <div class="cell-content"><span class="hebrew-text">בִּ<span class="highlight">י</span></span><span class="transcription">би</span></div>
+                           </td>
+                           <td class="side-cell">в ком? в чем?</td>
+                           <td class="side-cell">в, на</td>
+                           <td class="prep-name-cell active-prep">ב</td>
+                        </tr>
+                        <tr>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">בִּשְׁבִילָ<span class="highlight">ן</span></span><span class="transcription">бишвилан</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">בִּשְׁבִילָ<span class="highlight">ם</span></span><span class="transcription">бишвилам</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">בִּשְׁבִילָ<span class="highlight">הּ</span></span><span class="transcription">бишвила</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">בִּשְׁבִיל<span class="highlight">וֹ</span></span><span class="transcription">бишвило</span></div>
+                           </td>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">בִּשְׁבִילְ<span class="highlight">כֶן</span></span><span class="transcription">бишвильхэн</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">בִּשְׁבִילְ<span class="highlight">כֶם</span></span><span class="transcription">бишвильхэм</span></div>
+                           </td>
+                           <td class="grad-plur">
+                              <div class="cell-content"><span class="hebrew-text">בִּשְׁבִילֵ<span class="highlight">נוּ</span></span><span class="transcription">бишвилену</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">בִּשְׁבִילֵ<span class="highlight">ךְ</span></span><span class="transcription">бишвилех</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">בִּשְׁבִילְ<span class="highlight">ךָ</span></span><span class="transcription">бишвильха</span></div>
+                           </td>
+                           <td class="first-pers">
+                              <div class="cell-content"><span class="hebrew-text">בִּשְׁבִילִ<span class="highlight">י</span></span><span class="transcription">бишвили</span></div>
+                           </td>
+                           <td class="side-cell">для кого? для чего?</td>
+                           <td class="side-cell">ради, для</td>
+                           <td class="prep-name-cell active-prep" style="font-size: 16px;">בשביל</td>
+                        </tr>
+                        <tr>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">בִּגְלָלָ<span class="highlight">ן</span></span><span class="transcription">биглала́н</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">בִּגְלָלָ<span class="highlight">ם</span></span><span class="transcription">биглала́м</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">בִּגְלָלָ<span class="highlight">הּ</span></span><span class="transcription">биглала́</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">בִּגְלָל<span class="highlight">וֹ</span></span><span class="transcription">биглало́</span></div>
+                           </td>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">בִּגְלַלְ<span class="highlight">כֶן</span></span><span class="transcription">биглальхэ́н</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">בִּגְלַלְ<span class="highlight">כֶם</span></span><span class="transcription">биглальхэ́м</span></div>
+                           </td>
+                           <td class="grad-plur">
+                              <div class="cell-content"><span class="hebrew-text">בִּגְלָלֵ<span class="highlight">נוּ</span></span><span class="transcription">биглале́ну</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">בִּגְלָלֵ<span class="highlight">ךְ</span></span><span class="transcription">биглалех</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">בִּגְלַלְ<span class="highlight">ךָ</span></span><span class="transcription">биглальха́</span></div>
+                           </td>
+                           <td class="first-pers">
+                              <div class="cell-content"><span class="hebrew-text">בִּגְלָלִ<span class="highlight">י</span></span><span class="transcription">биглали́</span></div>
+                           </td>
+                           <td class="side-cell">из-за кого? из-за чего?</td>
+                           <td class="side-cell">из-за</td>
+                           <td class="prep-name-cell active-prep" style="font-size: 16px;">בגלל</td>
+                        </tr>
+                        <tr>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֲלֵ<span class="highlight">יהֶן</span></span><span class="transcription">элейhэ́н</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֲלֵ<span class="highlight">יהֶם</span></span><span class="transcription">элейhэ́м</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">אֵלֶ<span class="highlight">ֶיהָ</span></span><span class="transcription">элэ́hа</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">אֵלָ<span class="highlight">יו</span></span><span class="transcription">эла́в</span></div>
+                           </td>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֲלֵ<span class="highlight">יכֶן</span></span><span class="transcription">элейхэ́н</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֲלֵ<span class="highlight">יכֶם</span></span><span class="transcription">элейхэ́м</span></div>
+                           </td>
+                           <td class="grad-plur">
+                              <div class="cell-content"><span class="hebrew-text">אֵלֵ<span class="highlight">ינוּ</span></span><span class="transcription">элейну</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">אֵלַ<span class="highlight">יִךְ</span></span><span class="transcription">эла́их</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">אֵלֶ<span class="highlight">יךָ</span></span><span class="transcription">элеха</span></div>
+                           </td>
+                           <td class="first-pers">
+                              <div class="cell-content"><span class="hebrew-text">אֵלַ<span class="highlight">י</span></span><span class="transcription">эла́й</span></div>
+                           </td>
+                           <td class="side-cell">к кому? к чему?</td>
+                           <td class="side-cell">к</td>
+                           <td class="prep-name-cell active-prep">אל</td>
+                        </tr>
+                        <tr>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">עֲלֵ<span class="highlight">יהֶן</span></span><span class="transcription">алейhэн</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">עֲלֵ<span class="highlight">יהֶם</span></span><span class="transcription">алейhэм</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">עָלֶ<span class="highlight">ֶיהָ</span></span><span class="transcription">алэhа</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">עָלָ<span class="highlight">יו</span></span><span class="transcription">ала́в</span></div>
+                           </td>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">עֲלֵ<span class="highlight">יכֶן</span></span><span class="transcription">алейхэ́н</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">עֲלֵ<span class="highlight">יכֶם</span></span><span class="transcription">алейхэ́м</span></div>
+                           </td>
+                           <td class="grad-plur">
+                              <div class="cell-content"><span class="hebrew-text">עָלֵ<span class="highlight">ינוּ</span></span><span class="transcription">алейну</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">עָלַ<span class="highlight">יִךְ</span></span><span class="transcription">алаих</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">עָלֶ<span class="highlight">יךָ</span></span><span class="transcription">алеха</span></div>
+                           </td>
+                           <td class="first-pers">
+                              <div class="cell-content"><span class="hebrew-text">עָלַ<span class="highlight">י</span></span><span class="transcription">ала́й</span></div>
+                           </td>
+                           <td class="side-cell">на кого? на что?</td>
+                           <td class="side-cell">на</td>
+                           <td class="prep-name-cell active-prep">על</td>
+                        </tr>
+                        <tr>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">אִתָּ<span class="highlight">ן</span></span><span class="transcription">ита́н</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">אִתָּ<span class="highlight">ם</span></span><span class="transcription">ита́м</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">אִתָּ<span class="highlight">הּ</span></span><span class="transcription">ита́</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">אִתּ<span class="highlight">וֹ</span></span><span class="transcription">ито́</span></div>
+                           </td>
+                           <td class="fem-plur">
+                              <div class="cell-content"><span class="hebrew-text">אִתְּ<span class="highlight">כֶן</span></span><span class="transcription">итхэ́н</span></div>
+                           </td>
+                           <td class="masc-plur">
+                              <div class="cell-content"><span class="hebrew-text">אִתְּ<span class="highlight">כֶם</span></span><span class="transcription">итхэ́м</span></div>
+                           </td>
+                           <td class="grad-plur">
+                              <div class="cell-content"><span class="hebrew-text">אִתָּ<span class="highlight">נוּ</span></span><span class="transcription">ита́ну</span></div>
+                           </td>
+                           <td class="fem-sing">
+                              <div class="cell-content"><span class="hebrew-text">אִתָּ<span class="highlight">ךְ</span></span><span class="transcription">ита́х</span></div>
+                           </td>
+                           <td class="masc-sing">
+                              <div class="cell-content"><span class="hebrew-text">אִתְּ<span class="highlight">ךָ</span></span><span class="transcription">итха́</span></div>
+                           </td>
+                           <td class="first-pers">
+                              <div class="cell-content"><span class="hebrew-text">אִתִּ<span class="highlight">י</span></span><span class="transcription">ити́</span></div>
+                           </td>
+                           <td class="side-cell">с кем? с чем?</td>
+                           <td class="side-cell"></td>
+                           <td class="prep-name-cell active-prep">את</td>
+                        </tr>
+                     </table>
+                  </div>
+               </div>
+            </div>
+            <div id="vocabulary" class="tab-content">
+               <div class="canvas" style="margin: 0 auto; width: 800px;">
+					<div id="stickyControls" style="background: white; padding: 15px; border-bottom: 2px solid #eee;">
+					   <div style="display: flex; align-items: center; justify-content: center;">					  
+						  <div style="display: flex; gap: 10px; flex: 0 1 auto;">
+							 <button id="audioControl" onclick="resumeAudioContext(); toggleSpeech()">
+								▶ Озвучить всё
+							 </button>
+							 <button id="randomControl" onclick="toggleRandom()">
+								🎲 Случайный порядок: ВЫКЛ
+							 </button>
+						  </div>
+						  <div style="display: flex; flex-direction: column;  height: 60px; min-width: 20px;">		 
+							 <div style="display: flex; align-items: center; gap: 5px; padding: 0 12px;height: 28px;">
+								<button id="shuffleBtn" onclick="shuffleTable()" 
+								   style="background: none; border: none; padding: 0; cursor: pointer; font-size: 18px; display: flex; align-items: center;"
+								   title="Перемешать строки">
+								   🔀
+								</button>
+								<label style="display: inline-flex; align-items: center; cursor: pointer; font-size: 16px; white-space: nowrap; user-select: none;">
+								   <input type="checkbox" id="reverseOrder">
+								   Сначала русский
+								</label>
+							 </div>
+							 <div style="display: flex; align-items: center; gap: 5px; padding: 0 12px; height: 28px;">
+								<span>🔊</span>
+								<input type="range" id="volumeRange" min="0" max="1" step="0.1" value="1">
+								<span id="volumeValue">100%</span>
+							 </div>
+						  </div>
+					   </div>
 					</div>
-
-					<div class="time-section">
-						<div class="header-row"><span>Прошедшее время</span><span class="hebrew-text">עָבַר</span></div>
-						<table class="first-table">
-							<tr><td class="fem-plur"><span class="emoji fem-p"></span></td><td class="masc-plur"><span class="emoji masc-p"></span></td><td class="fem-sing"><span class="emoji fem-s"></span></td><td class="masc-sing"><span class="emoji masc-s"></span></td></tr>
-
-							<tr>
-								<td colspan="2" class="grad-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">נוּ</span></span></div><div class="pronoun-part">אנחנו</div></div></td>
-								<td colspan="2" class="grad-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">תִּי</span></span></div><div class="pronoun-part">אני</div></div></td>
-							</tr>
-							<tr>
-								<td class="fem-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">תֶּן</span></div><div class="pronoun-part">אתן</div></div></td>
-								<td class="masc-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">תֶּם</span></div><div class="pronoun-part">אתם</div></div></td>
-								<td class="fem-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">תְּ</span></div><div class="pronoun-part">את</div></div></td>
-								<td class="masc-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">תָּ</span></div><div class="pronoun-part">אתה</div></div></td>
-							</tr>
-							<tr>
-								<td class="fem-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">וּ</span></div><div class="pronoun-part">הן</div></div></td>
-								<td class="masc-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">וּ</span></div><div class="pronoun-part">הם</div></div></td>
-								<td class="fem-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">ָה</span></div><div class="pronoun-part">היא</div></div></td>
-								<td class="masc-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□</span></div><div class="pronoun-part">הוא</div></div></td>
-							</tr>
-						</table>
-					</div>
-
-					<div class="time-section">
-						<div class="header-row"><span>Будущее время</span><span class="hebrew-text">עָתִיד</span></div>
-						<table class="first-table">
-							<tr><td class="fem-plur"><span class="emoji fem-p"></span></td><td class="masc-plur"><span class="emoji masc-p"></span></td><td class="fem-sing"><span class="emoji fem-s"></span></td><td class="masc-sing"><span class="emoji masc-s"></span></td></tr>
-							<tr>
-								<td colspan="2" class="grad-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text"><span class="highlight">נ</span>□□□</span></div><div class="pronoun-part">אנחנו</div></div></td>
-								<td colspan="2" class="grad-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text"><span class="highlight">א</span>□□□</span></div><div class="pronoun-part">אני</div></div></td>
-							</tr>
-							<tr>
-								<td class="fem-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text"><span class="highlight">ת</span>□□□<span class="highlight">וּ</span></span></div><div class="pronoun-part">אתן</div></div></td>
-								<td class="masc-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text"><span class="highlight">ת</span>□□□<span class="highlight">וּ</span></span></div><div class="pronoun-part">אתם</div></div></td>
-								<td class="fem-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text"><span class="highlight">ת</span>□□□<span class="highlight">ִי</span></span></div><div class="pronoun-part">את</div></div></td>
-								<td class="masc-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text"><span class="highlight">ת</span>□□□</span></div><div class="pronoun-part">אתה</div></div></td>
-							</tr>
-							<tr>
-								<td class="fem-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text"><span class="highlight">י</span>□□□<span class="highlight">וּ</span></span></div><div class="pronoun-part">הן</div></div></td>
-								<td class="masc-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text"><span class="highlight">י</span>□□□<span class="highlight">וּ</span></span></div><div class="pronoun-part">הם</div></div></td>
-								<td class="fem-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text"><span class="highlight">ת</span>□□□</span></div><div class="pronoun-part">היא</div></div></td>
-								<td class="masc-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text"><span class="highlight">י</span>□□□</span></div><div class="pronoun-part">הוא</div></div></td>
-							</tr>
-						</table>
-					</div>
-
-					<div class="time-section">
-						<div class="header-row"><span>Повелительное наклонение</span><span class="hebrew-text">צִיוּוִּי</span></div>
-						<table class="first-table">
-							<tr><td class="fem-plur"><span class="emoji fem-p"></span></td><td class="masc-plur"><span class="emoji masc-p"></span></td><td class="fem-sing"><span class="emoji fem-s"></span></td><td class="masc-sing"><span class="emoji masc-s"></span></td></tr>
-							<tr>
-								<td class="fem-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">וּ</span></span></div><div class="pronoun-part">אתן</div></div></td>
-								<td class="masc-plur"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">וּ</span></div><div class="pronoun-part">אתם</div></div></td>
-								<td class="fem-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□<span class="highlight">ִי</span></span></div><div class="pronoun-part">את</div></div></td>
-								<td class="masc-sing"><div class="cell-content"><div class="verb-part"><span class="hebrew-text">□□□</span></div><div class="pronoun-part">אתה</div></div></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-
-				<div class="canvas right-panel">
-					<h1>Модели Пааль</h1>
-					<div class="time-section">
-						<div class="header-row">
-							<span>Инфинитив</span>
-							<span class="hebrew-text" style="color: #1a237e">לִ<span style="color: #333">□□</span>וֹ<span style="color: #333">□</span></span>
-						</div>
-						<table class="second-table">
-							<tr><td class="fem-sing"><span class="emoji fem-s"></span></td><td class="masc-sing"><span class="emoji masc-s"></span></td></tr>
-							<tr>
-								<td class="fem-sing"><div class="cell-content"><div class="verb-part">
-									<span class="hebrew-text">□<span class="highlight">וֹ</span>□<span class="highlight">ֶ</span>□<span class="highlight">ֶת</span></span>
-									<span class="transcription"><span class="highlight">1</span>о<span class="highlight">2</span>э́<span class="highlight">3</span>эт</span>
-								</div><div class="pronoun-part">אני<br>את<br>היא</div></div></td>
-								<td class="masc-sing"><div class="cell-content"><div class="verb-part">
-									<span class="hebrew-text">□<span class="highlight">וֹ</span>□<span class="highlight">ֵ</span>□</span>
-									<span class="transcription"><span class="highlight">1</span>о<span class="highlight">2</span>э́<span class="highlight">3</span></span>
-								</div><div class="pronoun-part">אני<br>אתה<br>הוא</div></div></td>
-							</tr>
-							<tr><td class="fem-plur"><span class="emoji fem-p"></span></td><td class="masc-plur"><span class="emoji masc-p"></span></td></tr>
-							<tr>
-								<td class="fem-plur"><div class="cell-content"><div class="verb-part">
-									<span class="hebrew-text">□<span class="highlight">וֹ</span>□□<span class="highlight">וֹת</span></span>
-									<span class="transcription"><span class="highlight">1</span>о<span class="highlight">23</span>о́т</span>
-								</div><div class="pronoun-part">אנחנו<br>אתן<br>הן</div></div></td>
-								<td class="masc-plur"><div class="cell-content"><div class="verb-part">
-									<span class="hebrew-text">□<span class="highlight">וֹ</span>□□<span class="highlight">ִים</span></span>
-									<span class="transcription"><span class="highlight">1</span>о<span class="highlight">23</span>и́м</span>
-								</div><div class="pronoun-part">אנחנו<br>אתם<br>הם</div></div></td>
-							</tr>
-							<tr>
-								<td class="fem-plur"><div class="cell-content"><div class="verb-part">
-									<div style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: bottom;">							
-										<div style="color: #8e24aa; font-size: 18px; font-weight: bold; margin-bottom: -3px;">ע , ח , ה</div>							
-										<div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: -2px;">
-											<span style="font-size: 14px; line-height: 1; color:#333">┕┳┙</span>
-											<span style="font-size: 14px; line-height: 0.8; margin-top: -2px; color:#333">↓</span>
-										</div>
-										<div class="hebrew-text" style="font-size: 28px;">
-											<span class="highlight">□וֹ</span><span><span style="color: #8e24aa;">אַ</span><span>□</span><span class="highlight">וֹת</span>
-										</div>
-									</div>						
-									<span class="transcription"><span class="highlight">1</span>о<span class="highlight">2</span>а<span class="highlight">3</span>о́т</span>
-								</div><div class="pronoun-part">אנחנו<br>אתן<br>הן</div></div></td>
-								<td class="masc-plur"><div class="cell-content"><div class="verb-part">
-									<div style="display: inline-flex; flex-direction: column; align-items: center; vertical-align: bottom;">							
-										<div style="color: #8e24aa; font-size: 18px; font-weight: bold; margin-bottom: -3px;">ע , ח , ה</div>							
-										<div style="display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: -2px;">
-											<span style="font-size: 14px; line-height: 1; color:#333">┕┳┙</span>
-											<span style="font-size: 14px; line-height: 0.8; margin-top: -2px; color:#333">↓</span>
-										</div>
-										<div class="hebrew-text" style="font-size: 28px;">
-											<span>□</span><span class="highlight">וֹ</span><span style="color: #8e24aa;">אַ</span>□<span class="highlight">ִים</span>
-										</div>
-									</div>						
-									<span class="transcription"><span class="highlight">1</span>о<span class="highlight">2</span>а<span class="highlight">3</span>и́м</span>
-								</div><div class="pronoun-part">אנחנו<br>אתם<br>הם</div></div></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="prepositions" class="tab-content">
-			<div class="canvas" style="margin: 0 auto; width: fit-content;">
-				<h1>Склонение предлогов (מילות יחס)</h1>
-				<div class="time-section" style="width: 1350px; border: 2px solid #000;">
-					<table class="prep-table">
-						<tr>
-							<td class="header-cell fem-plur"><span class="emoji fem-p"></span>הן</td>
-							<td class="header-cell masc-plur"><span class="emoji masc-p"></span>הם</td>
-							<td class="header-cell fem-sing"><span class="emoji fem-s"></span>היא</td>
-							<td class="header-cell masc-sing"><span class="emoji masc-s"></span>הוא</td>
-							<td class="header-cell fem-plur"><span class="emoji fem-p"></span>אתן</td>
-							<td class="header-cell masc-plur"><span class="emoji masc-p"></span>אתם</td>
-							<td class="header-cell grad-plur"><span class="emoji masc-p"></span>אנחנו</td>
-							<td class="header-cell fem-sing"><span class="emoji fem-s"></span>את</td>
-							<td class="header-cell masc-sing"><span class="emoji masc-s"></span>אתה</td>
-							<td class="header-cell first-pers"><span class="emoji self-s"></span>אני</td>
-							<td class="side-cell" style="font-size: 12px;width: 140px; font-weight: bold; background: #fff;">?</td>
-							<td class="side-cell" style="font-size: 12px;width: 140px; font-weight: bold; background: #fff;">Перевод</td>
-							<td class="prep-name-cell active-prep" style="font-size: 12px; background: #fff; color: #333;">Предлог</td>
-						</tr>
-
-						<tr>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">הֶן</span></span><span class="transcription">лаhэн</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">הֶם</span></span><span class="transcription">лаhэм</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">הּ</span></span><span class="transcription">ла</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">ל<span class="highlight">וֹ</span></span><span class="transcription">ло</span></div></td>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">כֶן</span></span><span class="transcription">лахэн</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">כֶם</span></span><span class="transcription">лахэм</span></div></td>
-							<td class="grad-plur"><div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">נוּ</span></span><span class="transcription">ла́ну</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">לָ<span class="highlight">ךְ</span></span><span class="transcription">лах</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">לְ<span class="highlight">ךָ</span></span><span class="transcription">леха́</span></div></td>
-							<td class="first-pers"><div class="cell-content"><span class="hebrew-text">לִ<span class="highlight">י</span></span><span class="transcription">ли</span></div></td>
-							<td class="side-cell">кому? чему?</td>
-							<td class="side-cell">в, к, для, направление</td>
-							<td class="prep-name-cell active-prep">ל</td>
-						</tr>
-
-						<tr>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">הֶן</span></span><span class="transcription">шелаhэн</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">הֶם</span></span><span class="transcription">шелаhэм</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">הּ</span></span><span class="transcription">шелá</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">שֶׁלּ<span class="highlight">וֹ</span></span><span class="transcription">шелó</span></div></td>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">כֶן</span></span><span class="transcription">шелахэн</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">כֶם</span></span><span class="transcription">шелахэм</span></div></td>
-							<td class="grad-plur"><div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">נוּ</span></span><span class="transcription">шелáну</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">שֶׁלָּ<span class="highlight">ךְ</span></span><span class="transcription">шелáх</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">שֶׁלְּ<span class="highlight">ךָ</span></span><span class="transcription">шелхá</span></div></td>
-							<td class="first-pers"><div class="cell-content"><span class="hebrew-text">שֶׁלִּ<span class="highlight">י</span></span><span class="transcription">шели</span></div></td>
-							<td class="side-cell">чей?</td>
-							<td class="side-cell">принадлежность</td>
-							<td class="prep-name-cell active-prep">של</td>
-						</tr>
-
-						<tr>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">אוֹתָ<span class="highlight">ן</span></span><span class="transcription">ота́н</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">אוֹתָ<span class="highlight">ם</span></span><span class="transcription">ота́м</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">אוֹתָ<span class="highlight">הּ</span></span><span class="transcription">ота́</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">אוֹת<span class="highlight">וֹ</span></span><span class="transcription">ото́</span></div></td>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">אֶתְ<span class="highlight">כֶן</span></span><span class="transcription">этхэн</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">אֶתְ<span class="highlight">כֶם</span></span><span class="transcription">этхэм</span></div></td>
-							<td class="grad-plur"><div class="cell-content"><span class="hebrew-text">אוֹתָ<span class="highlight">נוּ</span></span><span class="transcription">ота́ну</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">אוֹתָ<span class="highlight">ךְ</span></span><span class="transcription">ота́х</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">אוֹתְ<span class="highlight">ךָ</span></span><span class="transcription">отха́</span></div></td>
-							<td class="first-pers"><div class="cell-content"><span class="hebrew-text">אוֹתִ<span class="highlight">י</span></span><span class="transcription">оти́</span></div></td>
-							<td class="side-cell">кого? что?</td>
-							<td class="side-cell">прямое дополнение</td>
-							<td class="prep-name-cell active-prep">את</td>
-						</tr>
-
-						<tr>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">אֶצְלָ<span class="highlight">ן</span></span><span class="transcription">эцла́н</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">אֶצְלָ<span class="highlight">ם</span></span><span class="transcription">эцла́м</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">אֶצְלָ<span class="highlight">הּ</span></span><span class="transcription">эцла́</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">אֶצְל<span class="highlight">וֹ</span></span><span class="transcription">эцло́</span></div></td>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">אֶצְלְ<span class="highlight">כֶן</span></span><span class="transcription">эцлахэ́н</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">אֶצְלְ<span class="highlight">כֶם</span></span><span class="transcription">эцлахэ́м</span></div></td>
-							<td class="grad-plur"><div class="cell-content"><span class="hebrew-text">אֶצְלֵ<span class="highlight">נוּ</span></span><span class="transcription">эцлейну</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">אֶצְלֵ<span class="highlight">ךְ</span></span><span class="transcription">эцлех</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">אֶצְלְ<span class="highlight">ךָ</span></span><span class="transcription">эцлеха́</span></div></td>
-							<td class="first-pers"><div class="cell-content"><span class="hebrew-text">אֶצְלִ<span class="highlight">י</span></span><span class="transcription">эцли́</span></div></td>
-							<td class="side-cell">у кого?</td>
-							<td class="side-cell">у</td>
-							<td class="prep-name-cell active-prep">אצל</td>
-						</tr>
-						
-						<tr>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">הֶן</span></span><span class="transcription">баhэн</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">הֶם</span></span><span class="transcription">баhэм</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">הּ</span></span><span class="transcription">ба</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">בּ<span class="highlight">וֹ</span></span><span class="transcription">бо</span></div></td>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">כֶן</span></span><span class="transcription">бахэн</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">כֶם</span></span><span class="transcription">бахэм</span></div></td>
-							<td class="grad-plur"><div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">נוּ</span></span><span class="transcription">ба́ну</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">בָּ<span class="highlight">ךְ</span></span><span class="transcription">бах</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">בְּ<span class="highlight">ךָ</span></span><span class="transcription">бэха́</span></div></td>
-							<td class="first-pers"><div class="cell-content"><span class="hebrew-text">בִּ<span class="highlight">י</span></span><span class="transcription">би</span></div></td>
-							<td class="side-cell">в ком? в чем?</td>
-							<td class="side-cell">в, на</td>
-							<td class="prep-name-cell active-prep">ב</td>
-						</tr>
-						
-						<tr>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">בִּשְׁבִילָ<span class="highlight">ן</span></span><span class="transcription">бишвилан</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">בִּשְׁבִילָ<span class="highlight">ם</span></span><span class="transcription">бишвилам</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">בִּשְׁבִילָ<span class="highlight">הּ</span></span><span class="transcription">бишвила</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">בִּשְׁבִיל<span class="highlight">וֹ</span></span><span class="transcription">бишвило</span></div></td>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">בִּשְׁבִילְ<span class="highlight">כֶן</span></span><span class="transcription">бишвильхэн</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">בִּשְׁבִילְ<span class="highlight">כֶם</span></span><span class="transcription">бишвильхэм</span></div></td>
-							<td class="grad-plur"><div class="cell-content"><span class="hebrew-text">בִּשְׁבִילֵ<span class="highlight">נוּ</span></span><span class="transcription">бишвилену</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">בִּשְׁבִילֵ<span class="highlight">ךְ</span></span><span class="transcription">бишвилех</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">בִּשְׁבִילְ<span class="highlight">ךָ</span></span><span class="transcription">бишвильха</span></div></td>
-							<td class="first-pers"><div class="cell-content"><span class="hebrew-text">בִּשְׁבִילִ<span class="highlight">י</span></span><span class="transcription">бишвили</span></div></td>
-							<td class="side-cell">для кого? для чего?</td>
-							<td class="side-cell">ради, для</td>
-							<td class="prep-name-cell active-prep" style="font-size: 16px;">בשביל</td>
-						</tr>
-
-						<tr>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">בִּגְלָלָ<span class="highlight">ן</span></span><span class="transcription">биглала́н</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">בִּגְלָלָ<span class="highlight">ם</span></span><span class="transcription">биглала́м</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">בִּגְלָלָ<span class="highlight">הּ</span></span><span class="transcription">биглала́</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">בִּגְלָל<span class="highlight">וֹ</span></span><span class="transcription">биглало́</span></div></td>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">בִּגְלַלְ<span class="highlight">כֶן</span></span><span class="transcription">биглальхэ́н</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">בִּגְלַלְ<span class="highlight">כֶם</span></span><span class="transcription">биглальхэ́м</span></div></td>
-							<td class="grad-plur"><div class="cell-content"><span class="hebrew-text">בִּגְלָלֵ<span class="highlight">נוּ</span></span><span class="transcription">биглале́ну</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">בִּגְלָלֵ<span class="highlight">ךְ</span></span><span class="transcription">биглалех</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">בִּגְלַלְ<span class="highlight">ךָ</span></span><span class="transcription">биглальха́</span></div></td>
-							<td class="first-pers"><div class="cell-content"><span class="hebrew-text">בִּגְלָלִ<span class="highlight">י</span></span><span class="transcription">биглали́</span></div></td>
-							<td class="side-cell">из-за кого? из-за чего?</td>
-							<td class="side-cell">из-за</td>
-							<td class="prep-name-cell active-prep" style="font-size: 16px;">בגלל</td>
-						</tr>
-
-						<tr>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">אֲלֵ<span class="highlight">יהֶן</span></span><span class="transcription">элейhэ́н</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">אֲלֵ<span class="highlight">יהֶם</span></span><span class="transcription">элейhэ́м</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">אֵלֶ<span class="highlight">ֶיהָ</span></span><span class="transcription">элэ́hа</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">אֵלָ<span class="highlight">יו</span></span><span class="transcription">эла́в</span></div></td>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">אֲלֵ<span class="highlight">יכֶן</span></span><span class="transcription">элейхэ́н</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">אֲלֵ<span class="highlight">יכֶם</span></span><span class="transcription">элейхэ́м</span></div></td>
-							<td class="grad-plur"><div class="cell-content"><span class="hebrew-text">אֵלֵ<span class="highlight">ינוּ</span></span><span class="transcription">элейну</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">אֵלַ<span class="highlight">יִךְ</span></span><span class="transcription">эла́их</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">אֵלֶ<span class="highlight">יךָ</span></span><span class="transcription">элеха</span></div></td>
-							<td class="first-pers"><div class="cell-content"><span class="hebrew-text">אֵלַ<span class="highlight">י</span></span><span class="transcription">эла́й</span></div></td>
-							<td class="side-cell">к кому? к чему?</td>
-							<td class="side-cell">к</td>
-							<td class="prep-name-cell active-prep">אל</td>
-						</tr>
-
-						<tr>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">עֲלֵ<span class="highlight">יהֶן</span></span><span class="transcription">алейhэн</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">עֲלֵ<span class="highlight">יהֶם</span></span><span class="transcription">алейhэм</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">עָלֶ<span class="highlight">ֶיהָ</span></span><span class="transcription">алэhа</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">עָלָ<span class="highlight">יו</span></span><span class="transcription">ала́в</span></div></td>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">עֲלֵ<span class="highlight">יכֶן</span></span><span class="transcription">алейхэ́н</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">עֲלֵ<span class="highlight">יכֶם</span></span><span class="transcription">алейхэ́м</span></div></td>
-							<td class="grad-plur"><div class="cell-content"><span class="hebrew-text">עָלֵ<span class="highlight">ינוּ</span></span><span class="transcription">алейну</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">עָלַ<span class="highlight">יִךְ</span></span><span class="transcription">алаих</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">עָלֶ<span class="highlight">יךָ</span></span><span class="transcription">алеха</span></div></td>
-							<td class="first-pers"><div class="cell-content"><span class="hebrew-text">עָלַ<span class="highlight">י</span></span><span class="transcription">ала́й</span></div></td>
-							<td class="side-cell">на кого? на что?</td>
-							<td class="side-cell">на</td>
-							<td class="prep-name-cell active-prep">על</td>
-						</tr>
-						
-						<tr>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">אִתָּ<span class="highlight">ן</span></span><span class="transcription">ита́н</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">אִתָּ<span class="highlight">ם</span></span><span class="transcription">ита́м</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">אִתָּ<span class="highlight">הּ</span></span><span class="transcription">ита́</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">אִתּ<span class="highlight">וֹ</span></span><span class="transcription">ито́</span></div></td>
-							<td class="fem-plur"><div class="cell-content"><span class="hebrew-text">אִתְּ<span class="highlight">כֶן</span></span><span class="transcription">итхэ́н</span></div></td>
-							<td class="masc-plur"><div class="cell-content"><span class="hebrew-text">אִתְּ<span class="highlight">כֶם</span></span><span class="transcription">итхэ́м</span></div></td>
-							<td class="grad-plur"><div class="cell-content"><span class="hebrew-text">אִתָּ<span class="highlight">נוּ</span></span><span class="transcription">ита́ну</span></div></td>
-							<td class="fem-sing"><div class="cell-content"><span class="hebrew-text">אִתָּ<span class="highlight">ךְ</span></span><span class="transcription">ита́х</span></div></td>
-							<td class="masc-sing"><div class="cell-content"><span class="hebrew-text">אִתְּ<span class="highlight">ךָ</span></span><span class="transcription">итха́</span></div></td>
-							<td class="first-pers"><div class="cell-content"><span class="hebrew-text">אִתִּ<span class="highlight">י</span></span><span class="transcription">ити́</span></div></td>
-							<td class="side-cell">с кем? с чем?</td>
-							<td class="side-cell"></td>
-							<td class="prep-name-cell active-prep">את</td>
-						</tr>
-
-					</table>
-				</div>
-			</div>
-		</div>
-		<div id="vocabulary" class="tab-content">
-			<div class="canvas" style="margin: 0 auto; width: 800px;">
-				<div id="stickyControls">
-					<div style="text-align: center; margin-bottom: 20px; display: flex; justify-content: center; gap: 10px;">
-						<button id="audioControl" onclick="resumeAudioContext(); toggleSpeech()" style="height: 60px;white-space: nowrap;padding: 15px 30px; font-size: 20px; cursor: pointer; border-radius: 10px; background: #2e7d32; color: white; border: none;">
-							▶ Озвучить всё
-						</button>
-						<button id="randomControl" onclick="toggleRandom()" style="display: flex; align-items: center; justify-content: center;width: 320px;height: 60px;white-space: nowrap;padding: 15px 30px; font-size: 20px; cursor: pointer; border-radius: 10px; background: #1a237e; color: white; border: none;">
-							🎲 Случайный порядок: ВЫКЛ
-						</button>
-						<button id="shuffleBtn" onclick="shuffleTable()" 
-							style="background: none; border: none; padding: 0; margin: 0; cursor: pointer; font-size: 24px; line-height: 1; display: flex; align-items: center; transition: transform 0.2s;"
-							onmouseover="this.style.transform='scale(1.2)'" 
-							onmouseout="this.style.transform='scale(1)'"
-							title="Перемешать строки">
-							🔀
-						</button>
-						<label style="display: inline-flex; align-items: center; cursor: pointer; font-size: 18px; white-space: nowrap; margin-left: 10px;">
-							<input type="checkbox" id="reverseOrder" style="transform: scale(1.5); cursor: pointer; margin-right: 12px;">
-							Сначала русский
-						</label>
-					</div>
-				</div>
-				<table class="prep-table" id="wordsTable">
-					<thead>
-						<tr>
-							<th onclick="toggleColumn(0)">Иврит</th>
-							<th onclick="toggleColumn(1)">Транскрипция</th>
-							<th onclick="toggleColumn(2)">Русский</th>
-							<th>Слушать</th>
-						</tr>
-					</thead>
-					<tbody id="vocabBody">
-						</tbody>
-				</table>
-			<audio id="silenceLoop" loop>
-				<source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA== " type="audio/wav">
-			</audio>
-			</div>
-		</div>
-	</main>
-</div>
-<script src="script.js"></script>
-</body>
+                  <table class="prep-table" id="wordsTable">
+                     <thead>
+                        <tr>
+                           <th onclick="toggleColumn(0)">Иврит</th>
+                           <th onclick="toggleColumn(1)">Транскрипция</th>
+                           <th onclick="toggleColumn(2)">Русский</th>
+                           <th>Слушать</th>
+                        </tr>
+                     </thead>
+                     <tbody id="vocabBody">
+                     </tbody>
+                  </table>
+                  <audio id="silenceLoop" loop>
+                     <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA== " type="audio/wav">
+                  </audio>
+               </div>
+            </div>
+         </main>
+      </div>
+      <script src="script.js"></script>
+   </body>
 </html>
