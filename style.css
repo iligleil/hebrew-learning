@@ -1,18 +1,22 @@
 :root {
-    /* Основные цвета темы */
-    --primary-blue: #1976d2;      /* Синий (для активных вкладок и Random) */
-    --primary-teal: #00796b;      /* Бирюзовый (для Озвучки) */
-    --hover-blue: #e3f2fd;        /* Голубой при наведении */
-    --hover-teal: #e0f2f1;        /* Светло-бирюзовый при наведении */
-    
-    /* Нейтральные цвета */
-    --bg-white: #ffffff;
-    --bg-light-gray: #f5f5f5;
+	/* Основные цвета темы */
+	--primary-blue: #1976d2;
+	/* Синий (для активных вкладок и Random) */
+	--primary-teal: #00796b;
+	/* Бирюзовый (для Озвучки) */
+	--hover-blue: #e3f2fd;
+	/* Голубой при наведении */
+	--hover-teal: #e0f2f1;
+	/* Светло-бирюзовый при наведении */
+
+	/* Нейтральные цвета */
+	--bg-white: #ffffff;
+	--bg-light-gray: #f5f5f5;
 	--bg-gray: #f0f0f0;
-    --text-main: #333333;
-    --shadow-light: rgba(0, 0, 0, 0.05);
-    --shadow-active-blue: rgba(25, 118, 210, 0.3);
-    --shadow-active-teal: rgba(0, 121, 107, 0.4);
+	--text-main: #333333;
+	--shadow-light: rgba(0, 0, 0, 0.05);
+	--shadow-active-blue: rgba(25, 118, 210, 0.3);
+	--shadow-active-teal: rgba(0, 121, 107, 0.4);
 }
 
 body {
@@ -56,14 +60,8 @@ h1 {
 .tabs-nav {
 	display: flex;
 	flex-direction: column;
-	/* Кнопки друг под другом */
-	gap: 10px;
-}
-
-.tabs-nav {
-	display: flex;
 	justify-content: center;
-	gap: 10px;
+	gap: 5px;
 	margin-bottom: 30px;
 }
 
@@ -171,13 +169,16 @@ h1 {
 }
 
 table {
-	border-collapse: collapse;
 	table-layout: fixed;
 	width: 100%;
 	margin: 0;
 	padding: 0;
 	border: none;
 	/* Убираем рамку таблицы, работаем рамкой секции */
+}
+
+table:not(.prep-table) {
+	border-collapse: collapse;
 }
 
 td {
@@ -238,10 +239,6 @@ tr:last-child td {
 	line-height: 1.1;
 }
 
-.first-pers {
-	background-color: rgb(227, 213, 175) !important;
-}
-
 .fem-sing {
 	background-color: rgb(237, 160, 154);
 }
@@ -270,16 +267,6 @@ tr:last-child td {
 	font-weight: bold;
 }
 
-.fem-sing .highlight,
-.fem-plur .highlight {
-	color: #1a237e;
-}
-
-.masc-sing .highlight,
-.masc-plur .highlight {
-	color: #d32f2f;
-}
-
 .hebrew-text {
 	direction: rtl;
 	unicode-bidi: bidi-override;
@@ -293,7 +280,7 @@ tr:last-child td {
 }
 
 .emoji {
-	font-size: 34px;
+	font-size: 24px;
 	text-align: center;
 	display: block;
 	padding: 2px 0;
@@ -329,7 +316,7 @@ tr:last-child td {
 	transition: all 0.3s ease;
 	box-shadow: 0 0 15px rgba(255, 241, 118, 0.7);
 	position: relative;
-    z-index: 1;
+	z-index: 1;
 }
 
 /* Стиль кнопки в строке */
@@ -347,7 +334,7 @@ tr:last-child td {
 }
 
 /* Стили для кликабельных заголовков */
-th {
+th:not(.prep-table th) {
 	cursor: pointer;
 	user-select: none;
 	background: #f4f4f4 !important;
@@ -358,7 +345,6 @@ th {
 	position: sticky;
 	top: var(--offset, 100px);
 	z-index: 100;
-	outline: 1px solid #ccc;
 }
 
 th:hover::after {
@@ -379,15 +365,6 @@ th:hover::after {
 	border-bottom: 10px;
 }
 
-#wordsTable thead th {
-	position: sticky;
-	top: var(--offset, 650px);
-	/* Замирает СРАЗУ под кнопками */
-	z-index: 90;
-	/* Чуть ниже кнопок */
-	background: #eee !important;
-}
-
 /* Если у ячейки в стиле прописан блюр, при наведении принудительно его убираем */
 #wordsTable td:hover {
 	filter: blur(0) !important;
@@ -402,11 +379,12 @@ th:hover::after {
 
 #wordsTable th {
 	position: sticky;
-	top: var(--offset, 180px);
-	z-index: 100;
+	top: 0;
+	z-index: 10;
 	background: #eee !important;
-	border: 1px solid #ccc;
-	padding: 10px;
+	padding: 12px 10px;
+	border-bottom: 1px solid #ccc;
+	border-top: none;
 }
 
 /* Выравнивание текста в таблице словаря */
@@ -417,37 +395,35 @@ th:hover::after {
 	/* Немного увеличим высоту для удобства */
 	border: 1px solid #ccc;
 	padding: 10px;
-}
 
-#wordsTable tbody tr:last-child td {
-	border-bottom: 1px solid #000 !important;
 }
 
 #volumeRange {
-    accent-color: var(--hover-teal);
-    height: 8px;
-    border-radius: 5px;
-    outline: none;
+	accent-color: var(--hover-teal);
+	height: 8px;
+	border-radius: 5px;
+	outline: none;
 	cursor: pointer;
 	flex-grow: 1;
 	transition: accent-color 0.3s ease;
 }
 
 #volumeRange:active {
-    accent-color: var(--primary-teal);
+	accent-color: var(--primary-teal);
 }
+
 #volumeRange:hover {
-    accent-color: var(--primary-teal);
+	accent-color: var(--primary-teal);
 }
 
 #volumeValue {
-	display: inline-block; 
-    width: 45px;
-    text-align: right;
+	display: inline-block;
+	width: 45px;
+	text-align: right;
 	font-size: 18px;
-	min-width: 35px;	
+	min-width: 35px;
 }
- 
+
 #reverseOrder {
 	transform: scale(1.2);
 	cursor: pointer;
@@ -459,8 +435,8 @@ th:hover::after {
 	height: 60px;
 	width: 280px;
 	display: flex;
-    align-items: center;
-    justify-content: center;
+	align-items: center;
+	justify-content: center;
 	font-size: 18px;
 	font-weight: bold;
 	cursor: pointer;
@@ -472,66 +448,44 @@ th:hover::after {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-#audioControl{
-	background: var(--hover-teal); 	
+#audioControl {
+	background: var(--hover-teal);
 }
 
 #audioControl:hover {
 	background-color: var(--hover-teal);
-    color: var(--primary-teal);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	color: var(--primary-teal);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 #audioControl.active {
-    background-color: var(--primary-teal);
-    color: white;
-    box-shadow: 0 4px 10px rgba(25, 118, 210, 0.3);
+	background-color: var(--primary-teal);
+	color: white;
+	box-shadow: 0 4px 10px rgba(25, 118, 210, 0.3);
 }
 
 #randomControl {
-    background-color: var(--hover-blue); 
+	background-color: var(--hover-blue);
 }
 
 #randomControl:hover {
-    background-color: var(--hover-blue);
-    color: var(--primary-blue);
-    transform: translateY(-2px); 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	background-color: var(--hover-blue);
+	color: var(--primary-blue);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #randomControl.active {
-    background-color: var(--primary-blue);
-    color: white;
-    box-shadow: 0 4px 10px rgba(25, 118, 210, 0.3);
+	background-color: var(--primary-blue);
+	color: white;
+	box-shadow: 0 4px 10px rgba(25, 118, 210, 0.3);
 }
 
 .volume-row span:first-child {
-    display: inline-block;
-    width: 20px;
-    text-align: center;
-}
-
-.prep-table {
-	border-collapse: collapse;
-	table-layout: fixed;
-	width: 100%;
-}
-
-.prep-table .hebrew-text {
-	font-size: 24px;
-	line-height: 1;
-}
-
-.prep-table .transcription {
-	font-size: 14px;
-	margin-top: 2px;
-	font-weight: normal;
-	color: #808080;
-}
-
-/* Стили выделения как в первой вкладке */
-.highlight {
-	font-weight: bold;
+	display: inline-block;
+	width: 20px;
+	text-align: center;
 }
 
 .masc-sing .highlight,
@@ -583,7 +537,6 @@ th:hover::after {
 
 .active-prep {
 	background: #eeeeee !important;
-	color: # !important;
 }
 
 .prep-table .cell-content {
@@ -595,9 +548,87 @@ th:hover::after {
 	height: 100%;
 }
 
-.prep-table td {
-	height: 35px;
-	vertical-align: middle;
-	border: 1px solid #000;
-	padding: 0;
+.prep-wrapper {
+	position: relative;
+	margin-top: 20px;
+	overflow: visible !important;
+}
+
+.prep-table {
+	border-collapse: separate !important;
+	border-spacing: 0;
+	width: 100%;
+	background-color: #fff;
+}
+
+.prep-table thead th {
+	position: sticky !important;
+	top: var(--offset, 0px) !important;
+	z-index: 50 !important;
+	background: #eee !important;
+	padding: 12px 10px;
+	border-bottom: 2px solid #ccc !important;
+	background-clip: padding-box;
+}
+
+.prep-table thead tr th:first-child {
+	border-top-left-radius: 20px;
+}
+
+.prep-table thead tr th:last-child {
+	border-top-right-radius: 20px;
+}
+
+.prep-table thead th:first-child::before,
+.prep-table thead th:last-child::before {
+	content: "";
+	position: absolute;
+	top: -1px;
+	width: 22px;
+	height: 22px;
+	background-color: #fff;
+	z-index: -1;
+}
+
+.prep-table thead th:first-child::before {
+	left: -1px;
+	background: radial-gradient(circle at 22px 22px, transparent 20px, #fff 0px);
+}
+
+.prep-table thead th:last-child::before {
+	right: -1px;
+	background: radial-gradient(circle at 1px 22px, transparent 20px, #fff 0px);
+}
+
+.prep-table td,
+.prep-table th {
+	border-left: 1px solid #eee !important;
+	border-right: 1px solid #eee !important;
+	border-bottom: 1px solid #eee !important;
+}
+
+.prep-table tbody tr:nth-child(even) {
+	background-color: #f9f9f9 !important;
+}
+
+.prep-table tbody tr:hover {
+	background-color: var(--hover-teal) !important;
+}
+
+.prep-table:not(#prepositions) tbody tr:last-child td:first-child {
+	border-bottom-left-radius: 20px !important;
+}
+
+.prep-table:not(#prepositions) tbody tr:last-child td:last-child {
+	border-bottom-right-radius: 20px !important;
+}
+
+.prep-table .hebrew-text {
+	font-size: 20px;
+	line-height: 1.2;
+}
+
+.prep-table .transcription {
+	font-size: 14px;
+	color: #808080;
 }

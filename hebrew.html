@@ -724,48 +724,50 @@
             </div>
             <div id="vocabulary" class="tab-content">
                <div class="canvas" style="margin: 0 auto; width: 800px;">
-					<div id="stickyControls" style="background: white; padding: 15px; border-bottom: 2px solid #eee;">
-					   <div style="display: flex; align-items: center; justify-content: center;">					  
-						  <div style="display: flex; gap: 10px; flex: 0 1 auto;">
-							 <button id="audioControl" onclick="resumeAudioContext(); toggleSpeech()">
-								▶ Озвучить всё
-							 </button>
-							 <button id="randomControl" onclick="toggleRandom()">
-								🎲 Случайный порядок: ВЫКЛ
-							 </button>
-						  </div>
-						  <div style="display: flex; flex-direction: column;  height: 60px; min-width: 20px;">		 
-							 <div style="display: flex; align-items: center; gap: 5px; padding: 0 12px;height: 28px;">
-								<button id="shuffleBtn" onclick="shuffleTable()" 
-								   style="background: none; border: none; padding: 0; cursor: pointer; font-size: 18px; display: flex; align-items: center;"
-								   title="Перемешать строки">
-								   🔀
-								</button>
-								<label style="display: inline-flex; align-items: center; cursor: pointer; font-size: 16px; white-space: nowrap; user-select: none;">
-								   <input type="checkbox" id="reverseOrder">
-								   Сначала русский
-								</label>
-							 </div>
-							 <div style="display: flex; align-items: center; gap: 5px; padding: 0 12px; height: 28px;">
-								<span>🔊</span>
-								<input type="range" id="volumeRange" min="0" max="1" step="0.1" value="1">
-								<span id="volumeValue">100%</span>
-							 </div>
-						  </div>
-					   </div>
-					</div>
-                  <table class="prep-table" id="wordsTable">
-                     <thead>
-                        <tr>
-                           <th onclick="toggleColumn(0)">Иврит</th>
-                           <th onclick="toggleColumn(1)">Транскрипция</th>
-                           <th onclick="toggleColumn(2)">Русский</th>
-                           <th>Слушать</th>
-                        </tr>
-                     </thead>
-                     <tbody id="vocabBody">
-                     </tbody>
-                  </table>
+                  <div id="stickyControls" style="background: white; padding: 15px;">
+                     <div style="display: flex; align-items: center; justify-content: center;">
+                        <div style="display: flex; gap: 10px; flex: 0 1 auto;">
+                           <button id="audioControl" onclick="resumeAudioContext(); toggleSpeech()">
+                           ▶ Озвучить всё
+                           </button>
+                           <button id="randomControl" onclick="toggleRandom()">
+                           🎲 Случайный порядок: ВЫКЛ
+                           </button>
+                        </div>
+                        <div style="display: flex; flex-direction: column;  height: 60px; min-width: 20px;">
+                           <div style="display: flex; align-items: center; gap: 5px; padding: 0 12px;height: 28px;">
+                              <button id="shuffleBtn" onclick="shuffleTable()" 
+                                 style="background: none; border: none; padding: 0; cursor: pointer; font-size: 18px; display: flex; align-items: center;"
+                                 title="Перемешать строки">
+                              🔀
+                              </button>
+                              <label style="display: inline-flex; align-items: center; cursor: pointer; font-size: 16px; white-space: nowrap; user-select: none;">
+                              <input type="checkbox" id="reverseOrder">
+                              Сначала русский
+                              </label>
+                           </div>
+                           <div style="display: flex; align-items: center; gap: 5px; padding: 0 12px; height: 28px;">
+                              <span>🔊</span>
+                              <input type="range" id="volumeRange" min="0" max="1" step="0.1" value="1">
+                              <span id="volumeValue">100%</span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="prep-wrapper">
+                     <table class="prep-table" id="wordsTable">
+                        <thead>
+                           <tr>
+                              <th onclick="toggleColumn(0)">Иврит</th>
+                              <th onclick="toggleColumn(1)">Транскрипция</th>
+                              <th onclick="toggleColumn(2)">Русский</th>
+                              <th>Слушать</th>
+                           </tr>
+                        </thead>
+                        <tbody id="vocabBody">
+                        </tbody>
+                     </table>
+                  </div>
                   <audio id="silenceLoop" loop>
                      <source src="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA== " type="audio/wav">
                   </audio>
