@@ -399,7 +399,6 @@ th:hover::after {
 }
 
 #volumeRange {
-	accent-color: var(--hover-teal);
 	height: 8px;
 	border-radius: 5px;
 	outline: none;
@@ -408,12 +407,30 @@ th:hover::after {
 	transition: accent-color 0.3s ease;
 }
 
-#volumeRange:active {
-	accent-color: var(--primary-teal);
+input[type="range"] {
+  margin: auto;
+  -webkit-appearance: none;
+  position: relative;
+  overflow: hidden;
+  height: 40px;
+  width: 200px;
+  cursor: pointer;
+  border-radius: 10px;
 }
 
-#volumeRange:hover {
-	accent-color: var(--primary-teal);
+::-webkit-slider-runnable-track {
+  background: var(--hover-teal);
+}
+
+::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 5px;
+  height: 40px;
+  background: var(--hover-teal);
+  box-shadow: -200px 0 0 200px var(--primary-blue);
+  opacity: 30%;
+  outline: 1px;
+  border: 1;
 }
 
 #volumeValue {
@@ -517,6 +534,18 @@ th:hover::after {
 	font-size: 24px;
 }
 
+.header-cell:first-child {
+	border-top-left-radius: 10px !important;
+}
+
+.roundborder{
+	border-top-right-radius: 10px !important;
+}
+
+.prep-table td:hover {
+	background-color: var(--hover-teal) !important;
+}
+
 .side-cell {
 	background: #f9f9f9;
 	padding: 5px 8px;
@@ -533,6 +562,9 @@ th:hover::after {
 	text-align: center;
 	font-weight: bold;
 	border: 1px solid #000;
+}
+.time-section {
+ width: 1350px;
 }
 
 .active-prep {
@@ -561,7 +593,7 @@ th:hover::after {
 	background-color: #fff;
 }
 
-.prep-table thead th {
+.prep-table thead th{
 	position: sticky !important;
 	top: var(--offset, 0px) !important;
 	z-index: 50 !important;
@@ -572,11 +604,11 @@ th:hover::after {
 }
 
 .prep-table thead tr th:first-child {
-	border-top-left-radius: 20px;
+	border-top-left-radius: 10px;
 }
 
 .prep-table thead tr th:last-child {
-	border-top-right-radius: 20px;
+	border-top-right-radius: 10px;
 }
 
 .prep-table thead th:first-child::before,
@@ -592,19 +624,17 @@ th:hover::after {
 
 .prep-table thead th:first-child::before {
 	left: -1px;
-	background: radial-gradient(circle at 22px 22px, transparent 20px, #fff 0px);
+	background: radial-gradient(circle at 12px 12px, transparent 20px, #fff 0px);
 }
 
 .prep-table thead th:last-child::before {
 	right: -1px;
-	background: radial-gradient(circle at 1px 22px, transparent 20px, #fff 0px);
+	background: radial-gradient(circle at 12px 12px, transparent 20px, #fff 0px);
 }
 
 .prep-table td,
 .prep-table th {
-	border-left: 1px solid #eee !important;
-	border-right: 1px solid #eee !important;
-	border-bottom: 1px solid #eee !important;
+	border: 1px solid #eee !important;
 }
 
 .prep-table tbody tr:nth-child(even) {
@@ -616,11 +646,11 @@ th:hover::after {
 }
 
 .prep-table:not(#prepositions) tbody tr:last-child td:first-child {
-	border-bottom-left-radius: 20px !important;
+	border-bottom-left-radius: 10px !important;
 }
 
 .prep-table:not(#prepositions) tbody tr:last-child td:last-child {
-	border-bottom-right-radius: 20px !important;
+	border-bottom-right-radius: 10px !important;
 }
 
 .prep-table .hebrew-text {
