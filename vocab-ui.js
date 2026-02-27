@@ -16,26 +16,71 @@ export function renderIcons() {
   });
 }
 
-export function initVocab(words) {
+function createWordCell(content, blur) {
+  const td = document.createElement('td');
+  td.style.fontSize = '16px';
+  td.style.border = '1px solid #ccc';
+  td.style.padding = '10px';
+  td.style.filter = blur ? 'blur(5px)' : 'none';
+  td.textContent = content || '—';
+  return td;
+}
+
+function createSpeakCell(index) {
+  const td = document.createElement('td');
+  td.style.border = '1px solid #ccc';
+  td.style.padding = '10px';
+  td.style.textAlign = 'center';
+
+  const button = document.createElement('button');
+  button.className = 'speak-one-btn';
+  button.dataset.index = String(index);
+  button.style.cursor = 'pointer';
+  button.style.background = 'none';
+  button.style.border = 'none';
+  button.style.fontSize = '20px';
+  button.setAttribute('aria-label', 'Озвучить слово');
+  button.textContent = '🔊';
+
+  td.appendChild(button);
+  return td;
+}
+
+function createWordRow(word, index, blurStates) {
+  const row = document.createElement('tr');
+  row.id = `word-row-${index}`;
+
+  const heCell = createWordCell(word.he, blurStates[0]);
+  heCell.classList.add('hebrew-text');
+
+  row.appendChild(heCell);
+  row.appendChild(createWordCell(word.trans, blurStates[1]));
+  row.appendChild(createWordCell(word.ru, blurStates[2]));
+  row.appendChild(createSpeakCell(index));
+
+  return row;
+}
+
+export function renderWordsTable(words, blurStates = [false, false, false]) {
   const body = document.getElementById('vocabBody');
   if (!body) return;
 
-  body.innerHTML = '';
+  const fragment = document.createDocumentFragment();
   words.forEach((word, index) => {
-    const row = `<tr id="word-row-${index}">
-      <td class="hebrew-text">${word.he}</td>
-      <td style="font-size: 16px;">${word.trans}</td>
-      <td style="font-size: 16px;">${word.ru}</td>
-      <td><button class="speak-one-btn" data-index="${index}" style="cursor: pointer; background: none; border: none; font-size: 20px;" aria-label="Озвучить слово">🔊</button></td>
-    </tr>`;
-    body.innerHTML += row;
+    fragment.appendChild(createWordRow(word, index, blurStates));
   });
 
+  body.innerHTML = '';
+  body.appendChild(fragment);
   setTimeout(updateStickyOffset, 100);
 }
 
+export function initVocab(words) {
+  renderWordsTable(words);
+}
+
 export function shuffleTable(words, isSpeaking, cancelSpeech) {
-  for (let i = words.length - 1; i > 0; i--) {
+  for (let i = words.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
     [words[i], words[j]] = [words[j], words[i]];
   }
@@ -47,23 +92,7 @@ export function shuffleTable(words, isSpeaking, cancelSpeech) {
     return firstRow.cells[idx].style.filter === 'blur(5px)';
   });
 
-  const container = document.getElementById('vocabBody');
-  if (!container) return;
-
-  container.innerHTML = '';
-  words.forEach((word, index) => {
-    const row = document.createElement('tr');
-    row.id = `word-row-${index}`;
-    row.innerHTML = `
-      <td style="border: 1px solid #ccc; padding: 10px; ${blurStates[0] ? 'filter: blur(5px);' : ''}">${word.he}</td>
-      <td style="border: 1px solid #ccc; padding: 10px; ${blurStates[1] ? 'filter: blur(5px);' : ''}">${word.trans}</td>
-      <td style="border: 1px solid #ccc; padding: 10px; ${blurStates[2] ? 'filter: blur(5px);' : ''}">${word.ru}</td>
-      <td style="border: 1px solid #ccc; padding: 10px; text-align: center;">
-        <button class="speak-one-btn" data-index="${index}" style="cursor: pointer; background: none; border: none; font-size: 20px;" aria-label="Озвучить слово">🔊</button>
-      </td>
-    `;
-    container.appendChild(row);
-  });
+  renderWordsTable(words, blurStates);
 
   if (isSpeaking()) cancelSpeech();
 }
@@ -97,7 +126,7 @@ export function toggleColumn(index) {
   if (!table) return;
 
   const rows = table.rows;
-  for (let i = 1; i < rows.length; i++) {
+  for (let i = 1; i < rows.length; i += 1) {
     const cell = rows[i].cells[index];
     if (!cell) continue;
     cell.style.filter = cell.style.filter === 'blur(5px)' ? 'none' : 'blur(5px)';
