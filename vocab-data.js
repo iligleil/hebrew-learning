@@ -1,5 +1,11 @@
 import { APP_CONFIG } from './config.js';
 
+const EMBEDDED_FALLBACK_WORDS = [
+  { ru: 'Привет', ru_voice: 'Привет', he: 'שלום', he_voice: 'שלום', trans: 'шалом' },
+  { ru: 'Спасибо', ru_voice: 'Спасибо', he: 'תודה', he_voice: 'תודה', trans: 'тода' },
+  { ru: 'Дом', ru_voice: 'Дом', he: 'בַּיִת', he_voice: 'בית', trans: 'баит' },
+];
+
 function removeNiqqud(text) {
   return text.replace(/[\u0591-\u05C7]/g, '');
 }
@@ -91,20 +97,28 @@ function parseWordsFromCsv(text) {
 }
 
 async function loadSampleWords() {
-  const response = await fetch(APP_CONFIG.data.localFallbackPath);
-  if (!response.ok) throw new Error('Не удалось загрузить локальный словарь');
+  try {
+    const response = await fetch(APP_CONFIG.data.localFallbackPath);
+    if (!response.ok) throw new Error('Не удалось загрузить локальный словарь');
 
-  const data = await response.json();
-  if (!Array.isArray(data)) throw new Error('Локальный словарь имеет неверный формат');
+    const data = await response.json();
+    if (!Array.isArray(data)) throw new Error('Локальный словарь имеет неверный формат');
 
-  return data.map(createWordSchema).filter(Boolean);
+    return data.map(createWordSchema).filter(Boolean);
+  } catch (error) {
+    return EMBEDDED_FALLBACK_WORDS.map(createWordSchema).filter(Boolean);
+  }
 }
 
 export async function loadWords() {
   const csvUrl = `${APP_CONFIG.data.googleCsvUrl}&${APP_CONFIG.data.cacheBusterParam}=${Date.now()}`;
 
   try {
-    const response = await fetch(csvUrl);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), APP_CONFIG.data.googleFetchTimeoutMs);
+
+    const response = await fetch(csvUrl, { signal: controller.signal });
+    clearTimeout(timeoutId);
     if (!response.ok) throw new Error('Google Sheet недоступен');
 
     const data = await response.text();

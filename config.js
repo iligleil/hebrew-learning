@@ -20,5 +20,6 @@ export const APP_CONFIG = {
       'https://docs.google.com/spreadsheets/d/e/2PACX-1vTUqglLjSkwRZAwao-7Rx32nHa1f1MLxY_s_SJTL4ByUMk1Mtx3FRYZgbkoxnOzts3m5vOji5tg1s-6/pub?gid=0&single=true&output=csv',
     cacheBusterParam: 'cacheBuster',
     localFallbackPath: './words.sample.json',
+    googleFetchTimeoutMs: 4000,
   },
 };
