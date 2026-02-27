@@ -29,7 +29,7 @@ setInterval(() => {
     }
 }, 10000); // Раз в 10 секунд "встряхиваем" очередь
 
-document.addEventListener('DOMContentLoaded', () => {
+function initLegacyApp() {
     const volInput = document.getElementById('volumeRange');
     const volLabel = document.getElementById('volumeValue');
 
@@ -42,7 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderWeakRootPatterns();
     bindUIHandlers();
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLegacyApp, { once: true });
+} else {
+    initLegacyApp();
+}
 
 function bindUIHandlers() {
     document.querySelectorAll('.tab-button').forEach(button => {

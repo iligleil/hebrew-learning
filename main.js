@@ -12,6 +12,8 @@ import {
 } from './vocab-ui.js';
 import { APP_CONFIG } from './config.js';
 
+window.__HEBREW_MAIN_MODULE_LOADED = true;
+
 const state = {
   silentSource: null,
   isSpeaking: false,
@@ -147,7 +149,20 @@ async function bootstrap() {
   updateStickyOffset();
 }
 
-document.addEventListener('DOMContentLoaded', bootstrap);
+let isBootstrapped = false;
+
+function bootstrapOnce() {
+  if (isBootstrapped) return;
+  isBootstrapped = true;
+  void bootstrap();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrapOnce, { once: true });
+} else {
+  bootstrapOnce();
+}
+
 window.addEventListener('DOMContentLoaded', updateStickyOffset);
 window.addEventListener('load', updateStickyOffset);
 window.addEventListener('resize', updateStickyOffset);
