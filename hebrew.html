@@ -2,8 +2,9 @@
 <html lang="ru">
    <head>
       <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- http-equiv="refresh" content="3" -->
-      <title>Знаешь что такое безумие?</title>
+      <title>Hebrew Learning — таблицы и словарь</title>
       <link rel="stylesheet" href="style.css">
    </head>
    <body>
@@ -729,10 +730,10 @@
                   <div id="stickyControls" style="background: white; padding: 15px;">
                      <div style="display: flex; align-items: center; justify-content: center;">
                         <div style="display: flex; gap: 10px; flex: 0 1 auto;">
-                           <button id="audioControl" onclick="resumeAudioContext(); toggleSpeech()">
+                           <button id="audioControl" onclick="resumeAudioContext(); toggleSpeech()" aria-label="Озвучить весь словарь">
                            ▶ Озвучить всё
                            </button>
-                           <button id="randomControl" onclick="toggleRandom()">
+                           <button id="randomControl" onclick="toggleRandom()" aria-label="Переключить случайный порядок слов">
                            🎲 Случайный порядок: ВЫКЛ
                            </button>
                         </div>
@@ -740,6 +741,7 @@
                            <div style="display: flex; align-items: center; gap: 5px; padding: 0 12px;height: 28px;">
                               <button id="shuffleBtn" onclick="shuffleTable()" 
                                  style="background: none; border: none; padding: 0; cursor: pointer; font-size: 18px; display: flex; align-items: center;"
+                                 aria-label="Перемешать строки словаря"
                                  title="Перемешать строки">
                               🔀
                               </button>
