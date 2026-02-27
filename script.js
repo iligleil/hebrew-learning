@@ -107,12 +107,12 @@
     );
   }
 
-  function createCell(text, className) {
+  function createCell(text, className, preserveEmpty = false) {
     const cell = document.createElement('td');
     cell.style.fontSize = '16px';
     cell.style.border = '1px solid #ccc';
     cell.style.padding = '10px';
-    cell.textContent = text || '—';
+    cell.textContent = preserveEmpty ? (text ?? '') : (text || '—');
     if (className) cell.classList.add(className);
     return cell;
   }
@@ -127,6 +127,19 @@
     randomControl.classList.toggle('active', state.isRandom);
   }
 
+  function highlightRow(index) {
+    unhighlightAll();
+    const row = document.getElementById(`word-row-${index}`);
+    if (!row) return;
+    row.classList.add('speaking-now');
+  }
+
+  function unhighlightAll() {
+    document.querySelectorAll('#vocabBody tr').forEach((row) => {
+      row.classList.remove('speaking-now');
+    });
+  }
+
   function stopSpeech() {
     state.isSpeaking = false;
     window.speechSynthesis.cancel();
@@ -136,10 +149,13 @@
       audioControl.innerText = '▶ Озвучить всё';
       audioControl.classList.remove('active');
     }
+
+    unhighlightAll();
   }
 
   function speakOne(index, onDone) {
     const word = state.words[index];
+    highlightRow(index);
     if (!word) {
       if (typeof onDone === 'function') onDone();
       return;
@@ -164,10 +180,18 @@
     firstUtterance.onend = () => window.speechSynthesis.speak(secondUtterance);
     firstUtterance.onerror = () => window.speechSynthesis.speak(secondUtterance);
     secondUtterance.onend = () => {
-      if (typeof onDone === 'function') onDone();
+      if (typeof onDone === 'function') {
+        onDone();
+      } else {
+        setTimeout(unhighlightAll, 500);
+      }
     };
     secondUtterance.onerror = () => {
-      if (typeof onDone === 'function') onDone();
+      if (typeof onDone === 'function') {
+        onDone();
+      } else {
+        setTimeout(unhighlightAll, 500);
+      }
     };
 
     window.speechSynthesis.cancel();
@@ -197,30 +221,20 @@
     });
   }
 
-  function renderLegacyWords(sourceLabel) {
+  function renderLegacyWords() {
     const body = document.getElementById('vocabBody');
     if (!body) return;
 
     const fragment = document.createDocumentFragment();
 
-    if (sourceLabel) {
-      const noticeRow = document.createElement('tr');
-      const noticeCell = document.createElement('td');
-      noticeCell.colSpan = 4;
-      noticeCell.style.color = '#b26a00';
-      noticeCell.style.textAlign = 'center';
-      noticeCell.textContent = sourceLabel;
-      noticeRow.appendChild(noticeCell);
-      fragment.appendChild(noticeRow);
-    }
-
     state.words.forEach((word, index) => {
       const row = document.createElement('tr');
+      row.id = `word-row-${index}`;
       row.appendChild(createCell(word.he, 'hebrew-text'));
       row.appendChild(createCell(word.trans));
       row.appendChild(createCell(word.ru));
 
-      const audioCell = createCell('');
+      const audioCell = createCell('', '', true);
       audioCell.style.textAlign = 'center';
       const button = document.createElement('button');
       button.type = 'button';
@@ -245,7 +259,7 @@
       [state.words[i], state.words[j]] = [state.words[j], state.words[i]];
     }
     state.currentIndex = 0;
-    renderLegacyWords('Режим совместимости: строки словаря перемешаны.');
+    renderLegacyWords();
   }
 
   async function loadLegacyWords() {
@@ -334,8 +348,8 @@
     isBootstrapped = true;
 
     bindControls();
-    const sourceLabel = await loadLegacyWords();
-    renderLegacyWords(sourceLabel);
+    await loadLegacyWords();
+    renderLegacyWords();
   }
 
   if (document.readyState === 'loading') {
