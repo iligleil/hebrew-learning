@@ -1,4 +1,5 @@
 import { updateStickyOffset } from './tabs.js';
+import { APP_CONFIG } from './config.js';
 
 const icons = {
   'fem-s': '🤦',
@@ -16,12 +17,31 @@ export function renderIcons() {
   });
 }
 
+
+export function renderWeakRootPatterns() {
+  const template = document.getElementById('weak-root-pattern-template');
+  if (!template) return;
+
+  document.querySelectorAll('.weak-root-pattern').forEach((node) => {
+    const fragment = template.content.cloneNode(true);
+    const endingNode = fragment.querySelector('.weak-ending');
+    const prefixNode = fragment.querySelector('.weak-prefix');
+    const ending = node.dataset.ending || 'ִים';
+    const prefix = node.dataset.prefix || '□';
+
+    if (endingNode) endingNode.textContent = ending;
+    if (prefixNode) prefixNode.textContent = prefix;
+
+    node.appendChild(fragment);
+  });
+}
+
 function createWordCell(content, blur) {
   const td = document.createElement('td');
   td.style.fontSize = '16px';
   td.style.border = '1px solid #ccc';
   td.style.padding = '10px';
-  td.style.filter = blur ? 'blur(5px)' : 'none';
+  td.style.filter = blur ? `blur(${APP_CONFIG.ui.blurRadiusPx}px)` : 'none';
   td.textContent = content || '—';
   return td;
 }
@@ -72,7 +92,7 @@ export function renderWordsTable(words, blurStates = [false, false, false]) {
 
   body.innerHTML = '';
   body.appendChild(fragment);
-  setTimeout(updateStickyOffset, 100);
+  setTimeout(updateStickyOffset, APP_CONFIG.ui.stickyOffsetRenderDelayMs);
 }
 
 export function initVocab(words) {
@@ -89,7 +109,7 @@ export function shuffleTable(words, isSpeaking, cancelSpeech) {
   const blurStates = [0, 1, 2].map((idx) => {
     const firstRow = table?.querySelector('tbody tr');
     if (!firstRow) return false;
-    return firstRow.cells[idx].style.filter === 'blur(5px)';
+    return firstRow.cells[idx].style.filter === `blur(${APP_CONFIG.ui.blurRadiusPx}px)`;
   });
 
   renderWordsTable(words, blurStates);
@@ -108,7 +128,7 @@ export function highlightRow(index) {
   const tableHeader = document.querySelector('thead');
   if (!controls || !tableHeader) return;
 
-  const totalOffset = controls.offsetHeight + tableHeader.offsetHeight + 10;
+  const totalOffset = controls.offsetHeight + tableHeader.offsetHeight + APP_CONFIG.ui.scrollOffsetPaddingPx;
   const elementPosition = row.getBoundingClientRect().top + window.pageYOffset;
   const offsetPosition = elementPosition - totalOffset;
 
@@ -129,6 +149,6 @@ export function toggleColumn(index) {
   for (let i = 1; i < rows.length; i += 1) {
     const cell = rows[i].cells[index];
     if (!cell) continue;
-    cell.style.filter = cell.style.filter === 'blur(5px)' ? 'none' : 'blur(5px)';
+    cell.style.filter = cell.style.filter === `blur(${APP_CONFIG.ui.blurRadiusPx}px)` ? 'none' : `blur(${APP_CONFIG.ui.blurRadiusPx}px)`;
   }
 }
