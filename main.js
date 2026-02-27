@@ -1,4 +1,4 @@
-import { openTab, updateStickyOffset } from './tabs.js';
+import { openTab, updateStickyOffset, initStickyOffsetObserver, scheduleStickyOffsetUpdate } from './tabs.js';
 import { loadWords } from './vocab-data.js';
 import { createSpeechController, startSynthKeepAlive } from './speech.js';
 import {
@@ -10,7 +10,6 @@ import {
   renderIcons,
   renderWeakRootPatterns,
 } from './vocab-ui.js';
-import { APP_CONFIG } from './config.js';
 
 window.__HEBREW_MAIN_MODULE_LOADED = true;
 
@@ -35,7 +34,6 @@ const speech = createSpeechController({
   unhighlightAll,
 });
 
-
 function handleTabKeyboardNavigation(event) {
   const buttons = [...document.querySelectorAll('.tab-button')];
   const currentIndex = buttons.indexOf(event.currentTarget);
@@ -59,6 +57,17 @@ function handleTabKeyboardNavigation(event) {
     isSpeaking: () => state.isSpeaking,
     stopSpeech: speech.stopSpeech,
   });
+}
+
+function createStatusRow(message, color) {
+  const row = document.createElement('tr');
+  const cell = document.createElement('td');
+  cell.colSpan = 4;
+  cell.style.color = color;
+  cell.style.textAlign = 'center';
+  cell.textContent = message;
+  row.appendChild(cell);
+  return row;
 }
 
 function bindUIHandlers() {
@@ -125,27 +134,25 @@ async function bootstrap() {
   renderIcons();
   renderWeakRootPatterns();
   bindUIHandlers();
+  initStickyOffsetObserver();
+
+  const body = document.getElementById('vocabBody');
 
   try {
     const result = await loadWords();
     state.words = result.words;
     initVocab(state.words);
 
-    if (result.source === 'local-fallback') {
-      const body = document.getElementById('vocabBody');
-      if (body) {
-        const warningRow = document.createElement('tr');
-        warningRow.innerHTML = '<td colspan="4" style="color:#b26a00;text-align:center;">Google Sheet недоступен, показан локальный словарь.</td>';
-        body.prepend(warningRow);
-      }
+    if (result.source === 'local-fallback' && body) {
+      body.prepend(createStatusRow('Google Sheet недоступен, показан локальный словарь.', '#b26a00'));
     }
   } catch (error) {
-    const body = document.getElementById('vocabBody');
     if (body) {
-      body.innerHTML = `<tr><td colspan="4" style="color:red;text-align:center;">Ошибка загрузки: ${error.message}</td></tr>`;
+      body.replaceChildren(createStatusRow(`Ошибка загрузки: ${error.message}`, 'red'));
     }
   }
 
+  scheduleStickyOffsetUpdate();
   updateStickyOffset();
 }
 
@@ -163,7 +170,4 @@ if (document.readyState === 'loading') {
   bootstrapOnce();
 }
 
-window.addEventListener('DOMContentLoaded', updateStickyOffset);
-window.addEventListener('load', updateStickyOffset);
-window.addEventListener('resize', updateStickyOffset);
-setTimeout(updateStickyOffset, APP_CONFIG.ui.stickyOffsetBootDelayMs);
+window.addEventListener('load', scheduleStickyOffsetUpdate);

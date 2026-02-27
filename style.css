@@ -326,7 +326,7 @@ tr:last-child td {
 
 /* Стиль для подсвеченной строки */
 .speaking-now {
-	background-color: #fcf3a2 !important;
+	background-color: #fcf3a2;
 	/* Ярко-желтый цвет */
 	transition: all 0.3s ease;
 	box-shadow: 0 0 15px rgba(255, 241, 118, 0.7);
@@ -349,20 +349,19 @@ tr:last-child td {
 }
 
 /* Стили для кликабельных заголовков */
-th:not(.prep-table th) {
+#wordsTable thead th[data-column-toggle] {
 	cursor: pointer;
 	user-select: none;
-	background: #f4f4f4 !important;
-	background-color: #eee !important;
+	background-color: #eee;
 	padding: 12px 10px;
-	border: 1px solid #ccc !important;
+	border: 1px solid #ccc;
 	text-align: center;
 	position: sticky;
 	top: var(--offset, 100px);
 	z-index: 100;
 }
 
-th:hover::after {
+#wordsTable thead th[data-column-toggle]:hover::after {
 	content: " 👁️";
 	font-size: 14px;
 	position: absolute;
@@ -382,7 +381,7 @@ th:hover::after {
 
 /* Если у ячейки в стиле прописан блюр, при наведении принудительно его убираем */
 #wordsTable td:hover {
-	filter: blur(0) !important;
+	filter: blur(0);
 	transition: filter 0.2s;
 }
 
@@ -396,7 +395,7 @@ th:hover::after {
 	position: sticky;
 	top: 0;
 	z-index: 10;
-	background: #eee !important;
+	background: #eee;
 	padding: 12px 10px;
 	border-bottom: 1px solid #ccc;
 	border-top: none;
@@ -599,19 +598,19 @@ input[type="range"] {
 }
 
 .prep-table {
-	border-collapse: separate !important;
+	border-collapse: separate;
 	border-spacing: 0;
 	width: 100%;
 	background-color: #fff;
 }
 
 .prep-table thead th{
-	position: sticky !important;
-	top: var(--offset, 0px) !important;
-	z-index: 50 !important;
-	background: #eee !important;
+	position: sticky;
+	top: var(--offset, 0px);
+	z-index: 50;
+	background: #eee;
 	padding: 12px 10px;
-	border-bottom: 2px solid #ccc !important;
+	border-bottom: 2px solid #ccc;
 	background-clip: padding-box;
 }
 
@@ -646,7 +645,7 @@ input[type="range"] {
 
 .prep-table td,
 .prep-table th {
-	border: 1px solid #eee !important;
+	border: 1px solid #eee;
 }
 
 .prep-table tbody tr:nth-child(even) {
@@ -826,10 +825,18 @@ input[type="range"] {
 	color: #8e24aa;
 }
 
-.tab-button:focus-visible,
-button:focus-visible,
-input:focus-visible,
-th:focus-visible {
+.th-toggle-btn {
+	all: unset;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	cursor: pointer;
+}
+
+#stickyControls button:focus-visible,
+#wordsTable .speak-one-btn:focus-visible,
+.th-toggle-btn:focus-visible {
 	outline: none;
 	box-shadow: 0 0 0 3px var(--primary-blue);
 	border-radius: 8px;
