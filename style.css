@@ -118,7 +118,7 @@ h1 {
 
 .main-container {
 	display: flex;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: flex-start;
 	gap: 30px;
