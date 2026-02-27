@@ -11,9 +11,9 @@
       <div class="main-layout">
          <nav class="side-menu">
             <div class="tabs-nav">
-               <button class="tab-button active" data-tab="verbs">Глаголы</button>
-               <button class="tab-button" data-tab="prepositions">Предлоги</button>
-               <button class="tab-button" data-tab="vocabulary">Слова</button>
+               <button class="tab-button active" onclick="openTab('verbs')">Глаголы</button>
+               <button class="tab-button" onclick="openTab('prepositions')">Предлоги</button>
+               <button class="tab-button" onclick="openTab('vocabulary')">Слова</button>
             </div>
          </nav>
          <main class="content-area">
@@ -730,16 +730,16 @@
                   <div id="stickyControls" style="background: white; padding: 15px;">
                      <div style="display: flex; align-items: center; justify-content: center;">
                         <div style="display: flex; gap: 10px; flex: 0 1 auto;">
-                           <button id="audioControl" aria-label="Озвучить весь словарь">
+                           <button id="audioControl" onclick="resumeAudioContext(); toggleSpeech()" aria-label="Озвучить весь словарь">
                            ▶ Озвучить всё
                            </button>
-                           <button id="randomControl" aria-label="Переключить случайный порядок слов">
+                           <button id="randomControl" onclick="toggleRandom()" aria-label="Переключить случайный порядок слов">
                            🎲 Случайный порядок: ВЫКЛ
                            </button>
                         </div>
                         <div style="display: flex; flex-direction: column;  height: 60px; min-width: 20px;">
                            <div style="display: flex; align-items: center; gap: 5px; padding: 0 12px;height: 28px;">
-                              <button id="shuffleBtn" 
+                              <button id="shuffleBtn" onclick="shuffleTable()" 
                                  style="background: none; border: none; padding: 0; cursor: pointer; font-size: 18px; display: flex; align-items: center;"
                                  aria-label="Перемешать строки словаря"
                                  title="Перемешать строки">
@@ -762,9 +762,9 @@
                      <table class="prep-table" id="wordsTable">
                         <thead>
                            <tr>
-                              <th data-column-toggle="0">Иврит</th>
-                              <th data-column-toggle="1">Транскрипция</th>
-                              <th data-column-toggle="2">Русский</th>
+                              <th onclick="toggleColumn(0)">Иврит</th>
+                              <th onclick="toggleColumn(1)">Транскрипция</th>
+                              <th onclick="toggleColumn(2)">Русский</th>
                               <th>Слушать</th>
                            </tr>
                         </thead>
