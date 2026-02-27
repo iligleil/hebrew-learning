@@ -784,6 +784,11 @@
                document.body.appendChild(legacyScript);
             }
 
+            if (window.location.protocol === 'file:') {
+               loadLegacyApp();
+               return;
+            }
+
             var moduleScript = document.createElement('script');
             moduleScript.type = 'module';
             moduleScript.src = 'main.js';
