@@ -1,5 +1,5 @@
 import { openTab, updateStickyOffset } from './tabs.js';
-import { loadWordsFromSheet } from './vocab-data.js';
+import { loadWords } from './vocab-data.js';
 import { createSpeechController, startSynthKeepAlive } from './speech.js';
 import { initVocab, shuffleTable, toggleColumn, highlightRow, unhighlightAll, renderIcons } from './vocab-ui.js';
 
@@ -86,8 +86,18 @@ async function bootstrap() {
   bindUIHandlers();
 
   try {
-    state.words = await loadWordsFromSheet();
+    const result = await loadWords();
+    state.words = result.words;
     initVocab(state.words);
+
+    if (result.source === 'local-fallback') {
+      const body = document.getElementById('vocabBody');
+      if (body) {
+        const warningRow = document.createElement('tr');
+        warningRow.innerHTML = '<td colspan="4" style="color:#b26a00;text-align:center;">Google Sheet недоступен, показан локальный словарь.</td>';
+        body.prepend(warningRow);
+      }
+    }
   } catch (error) {
     const body = document.getElementById('vocabBody');
     if (body) {
