@@ -1,4 +1,4 @@
-import { updateStickyOffset } from './tabs.js';
+import { scheduleStickyOffsetUpdate } from './tabs.js';
 import { APP_CONFIG } from './config.js';
 
 const icons = {
@@ -12,7 +12,7 @@ const icons = {
 export function renderIcons() {
   Object.keys(icons).forEach((key) => {
     document.querySelectorAll(`.${key}`).forEach((el) => {
-      el.innerHTML = icons[key];
+      el.textContent = icons[key];
     });
   });
 }
@@ -90,9 +90,8 @@ export function renderWordsTable(words, blurStates = [false, false, false]) {
     fragment.appendChild(createWordRow(word, index, blurStates));
   });
 
-  body.innerHTML = '';
-  body.appendChild(fragment);
-  setTimeout(updateStickyOffset, APP_CONFIG.ui.stickyOffsetRenderDelayMs);
+  body.replaceChildren(fragment);
+  scheduleStickyOffsetUpdate();
 }
 
 export function initVocab(words) {

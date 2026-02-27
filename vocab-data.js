@@ -15,7 +15,7 @@ function clean(value) {
   return value.trim();
 }
 
-function createWordSchema(rawWord) {
+export function createWordSchema(rawWord) {
   const ru = clean(rawWord.ru);
   const he = clean(rawWord.he);
 
@@ -32,7 +32,7 @@ function createWordSchema(rawWord) {
   };
 }
 
-function parseCsv(text) {
+export function parseCsv(text) {
   const rows = [];
   let row = [];
   let cell = '';
@@ -86,19 +86,35 @@ function getWordFromColumns(columns) {
   });
 }
 
-function parseWordsFromCsv(text) {
+export function parseWordsFromCsv(text) {
   const rows = parseCsv(text);
   if (rows.length <= 1) return [];
 
-  return rows
-    .slice(1)
-    .map(getWordFromColumns)
-    .filter(Boolean);
+  return rows.slice(1).map(getWordFromColumns).filter(Boolean);
 }
 
-async function loadSampleWords() {
+function resolveDataSource(overrides = {}) {
+  const runtimeConfig = {
+    mode: APP_CONFIG.data.sourceMode,
+    googleCsvUrl: APP_CONFIG.data.googleCsvUrl,
+    localFallbackPath: APP_CONFIG.data.localFallbackPath,
+    googleFetchTimeoutMs: APP_CONFIG.data.googleFetchTimeoutMs,
+    ...overrides,
+  };
+
+  if (typeof window !== 'undefined') {
+    const params = new URLSearchParams(window.location.search);
+    const sourceParam = params.get('dataSource');
+    if (sourceParam) runtimeConfig.mode = sourceParam;
+    if (window.__HEBREW_DATA_SOURCE) runtimeConfig.mode = window.__HEBREW_DATA_SOURCE;
+  }
+
+  return runtimeConfig;
+}
+
+async function loadSampleWords(path = APP_CONFIG.data.localFallbackPath) {
   try {
-    const response = await fetch(APP_CONFIG.data.localFallbackPath);
+    const response = await fetch(path);
     if (!response.ok) throw new Error('Не удалось загрузить локальный словарь');
 
     const data = await response.json();
@@ -110,12 +126,19 @@ async function loadSampleWords() {
   }
 }
 
-export async function loadWords() {
-  const csvUrl = `${APP_CONFIG.data.googleCsvUrl}&${APP_CONFIG.data.cacheBusterParam}=${Date.now()}`;
+export async function loadWords(overrides = {}) {
+  const sourceConfig = resolveDataSource(overrides);
+
+  if (sourceConfig.mode === 'local') {
+    const words = await loadSampleWords(sourceConfig.localFallbackPath);
+    return { words, source: 'local-forced' };
+  }
+
+  const csvUrl = `${sourceConfig.googleCsvUrl}&${APP_CONFIG.data.cacheBusterParam}=${Date.now()}`;
 
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), APP_CONFIG.data.googleFetchTimeoutMs);
+    const timeoutId = setTimeout(() => controller.abort(), sourceConfig.googleFetchTimeoutMs);
 
     const response = await fetch(csvUrl, { signal: controller.signal });
     clearTimeout(timeoutId);
@@ -127,7 +150,11 @@ export async function loadWords() {
 
     return { words, source: 'google' };
   } catch (error) {
-    const words = await loadSampleWords();
+    if (sourceConfig.mode === 'google-only') {
+      throw new Error(`Ошибка загрузки словаря: ${error.message}`);
+    }
+
+    const words = await loadSampleWords(sourceConfig.localFallbackPath);
     if (!words.length) {
       throw new Error(`Ошибка загрузки словаря: ${error.message}`);
     }

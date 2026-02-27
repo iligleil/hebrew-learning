@@ -7,6 +7,27 @@
     'self-s': '🤓',
   };
 
+  const embeddedFallbackWords = [
+    { ru: 'Привет', he: 'שלום', trans: 'шалом' },
+    { ru: 'Спасибо', he: 'תודה', trans: 'тода' },
+    { ru: 'Дом', he: 'בַּיִת', trans: 'баит' },
+  ];
+
+  function clean(value) {
+    return typeof value === 'string' ? value.trim() : '';
+  }
+
+  function normalizeWord(rawWord) {
+    const ru = clean(rawWord.ru);
+    const he = clean(rawWord.he);
+    if (!ru || !he) return null;
+    return {
+      ru,
+      he,
+      trans: clean(rawWord.trans),
+    };
+  }
+
   function renderIcons() {
     Object.entries(icons).forEach(([cls, icon]) => {
       document.querySelectorAll(`.${cls}`).forEach((node) => {
@@ -57,12 +78,74 @@
     });
   }
 
+  async function loadFallbackWords() {
+    try {
+      const response = await fetch('./words.sample.json');
+      if (!response.ok) throw new Error('Local words are unavailable');
+      const data = await response.json();
+      if (!Array.isArray(data)) throw new Error('Local words format is invalid');
+
+      const normalized = data.map(normalizeWord).filter(Boolean);
+      if (normalized.length) return normalized;
+    } catch (error) {
+      // no-op: fall back to embedded list
+    }
+
+    return embeddedFallbackWords.map(normalizeWord).filter(Boolean);
+  }
+
+  function renderFallbackWords(words) {
+    const body = document.getElementById('vocabBody');
+    if (!body || body.querySelector('tr')) return;
+
+    const noticeRow = document.createElement('tr');
+    const noticeCell = document.createElement('td');
+    noticeCell.colSpan = 4;
+    noticeCell.style.color = '#b26a00';
+    noticeCell.style.textAlign = 'center';
+    noticeCell.textContent = 'Загружен локальный словарь (fallback-режим).';
+    noticeRow.appendChild(noticeCell);
+
+    const rows = words.map((word) => {
+      const row = document.createElement('tr');
+
+      const heCell = document.createElement('td');
+      heCell.textContent = word.he;
+
+      const trCell = document.createElement('td');
+      trCell.textContent = word.trans;
+
+      const ruCell = document.createElement('td');
+      ruCell.textContent = word.ru;
+
+      const audioCell = document.createElement('td');
+      audioCell.textContent = '—';
+      audioCell.style.textAlign = 'center';
+
+      row.append(heCell, trCell, ruCell, audioCell);
+      return row;
+    });
+
+    body.replaceChildren(noticeRow, ...rows);
+  }
+
+  function scheduleVocabFallback() {
+    setTimeout(async () => {
+      if (window.__HEBREW_MAIN_MODULE_LOADED) return;
+      const body = document.getElementById('vocabBody');
+      if (!body || body.querySelector('tr')) return;
+      const words = await loadFallbackWords();
+      renderFallbackWords(words);
+    }, 1200);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
-    if (window.__HEBREW_MAIN_MODULE_LOADED || window.__HEBREW_LEGACY_APP_LOADED) {
+    if (window.__HEBREW_MAIN_MODULE_LOADED) {
       return;
     }
 
     renderIcons();
     bindTabs();
+    scheduleVocabFallback();
   });
 })();
