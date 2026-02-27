@@ -1,13 +1,19 @@
 let silentSource = null; // Глобальная переменная для управления тишиной
-const keepAliveMsg = new SpeechSynthesisUtterance(" ");
-keepAliveMsg.volume = 0.01; // Почти ноль, но не полный 0 (некоторые системы игнорируют 0)
-keepAliveMsg.rate = 10; // Максимально быстро, чтобы не занимать очередь
+const hasSpeechSupport =
+    typeof window !== 'undefined' &&
+    'speechSynthesis' in window &&
+    typeof window.SpeechSynthesisUtterance !== 'undefined';
+const keepAliveMsg = hasSpeechSupport ? new SpeechSynthesisUtterance(' ') : null;
+if (keepAliveMsg) {
+    keepAliveMsg.volume = 0.01; // Почти ноль, но не полный 0 (некоторые системы игнорируют 0)
+    keepAliveMsg.rate = 10; // Максимально быстро, чтобы не занимать очередь
+}
 let isSpeaking = false;
 let isRandom = false;
 let currentIndex = 0;
 let currentMsgHe;
 let currentMsgRu;
-const synth = window.speechSynthesis;
+const synth = hasSpeechSupport ? window.speechSynthesis : null;
 const silencePlayer = document.getElementById('silenceLoop');
 let currentVolume = 1;
 
@@ -16,6 +22,7 @@ let myWords = [];
 
 // Патч для борьбы с "засыпанием" синтезатора
 setInterval(() => {
+    if (!hasSpeechSupport) return;
     if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
         window.speechSynthesis.pause();
         window.speechSynthesis.resume();
@@ -98,6 +105,19 @@ const icons = {
 
 function removeNiqqud(text) {
     return text.replace(/[\u0591-\u05C7]/g, "");
+}
+
+function ensureSpeechSupport() {
+    if (hasSpeechSupport && synth) return true;
+
+    const btn = document.getElementById('audioControl');
+    if (btn) {
+        btn.innerText = 'Озвучка недоступна';
+        btn.classList.remove('active');
+        btn.disabled = true;
+    }
+
+    return false;
 }
 
 function resumeAudioContext() {
@@ -284,6 +304,7 @@ function shuffleTable() {
 }
 
 function getHebrewVoice() {
+    if (!synth) return null;
     const allVoices = synth.getVoices();
     // Ищем голос, в названии которого есть 'Hebrew' или 'Israel' 
     // и который звучит более "женственно" (в Windows это обычно 'Hila' или 'Asaf' - мужской)
@@ -312,6 +333,7 @@ function initVocab() {
 }
 
 function toggleSpeech() {
+    if (!ensureSpeechSupport()) return;
     const btn = document.getElementById('audioControl');
     if (!isSpeaking) {
         synth.cancel();
@@ -338,6 +360,7 @@ function toggleSpeech() {
 }
 
 function speakLoop() {
+    if (!ensureSpeechSupport()) return;
     if (!isSpeaking) return;
 
     // 1. Озвучиваем ТЕКУЩЕЕ слово (currentIndex)
@@ -419,6 +442,7 @@ function toggleRandom() {
 }
 
 function speakOne(index) {
+    if (!ensureSpeechSupport()) return;
     if (synth.speaking) synth.cancel();
 
     const silencePlayer = document.getElementById('silenceLoop');
