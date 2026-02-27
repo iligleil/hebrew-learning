@@ -138,8 +138,16 @@ h1 {
 	overflow: visible;
 }
 
-.left-panel .time-section {
+.left-panel {
 	width: min(100%, 52.2rem);
+}
+
+.right-panel {
+	width: min(100%, 41.25rem);
+}
+
+.left-panel .time-section {
+	width: 100%;
 	/* 4 колонки по 210px */
 	margin-bottom: 20px;
 	border: 2px solid #000;
@@ -147,7 +155,7 @@ h1 {
 }
 
 .right-panel .time-section {
-	width: min(100%, 41.25rem);
+	width: 100%;
 	/* 2 колонки по 330px */
 	margin-bottom: 20px;
 	border: 2px solid #000;
@@ -802,6 +810,14 @@ input:focus-visible,
 th:focus-visible {
 	outline: 3px solid var(--primary-blue);
 	outline-offset: 2px;
+}
+
+
+@media (min-width: 1400px) {
+	.main-container {
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+	}
 }
 
 @media (max-width: 900px) {
