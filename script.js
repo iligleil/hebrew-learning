@@ -20,6 +20,44 @@ let currentVolume = 1;
 let voices = [];
 let myWords = [];
 
+
+const EMBEDDED_FALLBACK_WORDS = [
+    { ru: 'Привет', ru_voice: 'Привет', he: 'שלום', he_voice: 'שלום', trans: 'шалом' },
+    { ru: 'Спасибо', ru_voice: 'Спасибо', he: 'תודה', he_voice: 'תודה', trans: 'тода' },
+    { ru: 'Дом', ru_voice: 'Дом', he: 'בַּיִת', he_voice: 'בית', trans: 'баит' }
+];
+
+function normalizeWord(rawWord) {
+    const clean = (val) => val ? val.replace(/^"|"$/g, '').trim() : "";
+    const ru = clean(rawWord.ru);
+    const he = clean(rawWord.he);
+    if (!ru || !he) return null;
+
+    return {
+        ru,
+        ru_voice: clean(rawWord.ru_voice) || ru,
+        he,
+        he_voice: clean(rawWord.he_voice) || removeNiqqud(he),
+        trans: clean(rawWord.trans)
+    };
+}
+
+async function loadLocalFallbackWords() {
+    try {
+        const response = await fetch('./words.sample.json');
+        if (!response.ok) throw new Error('Не удалось загрузить локальный словарь');
+        const data = await response.json();
+        if (!Array.isArray(data)) throw new Error('Локальный словарь имеет неверный формат');
+
+        const words = data.map(normalizeWord).filter(Boolean);
+        if (words.length) return words;
+    } catch (error) {
+        console.warn('Не удалось загрузить words.sample.json, используем встроенный словарь:', error.message);
+    }
+
+    return EMBEDDED_FALLBACK_WORDS.map(normalizeWord).filter(Boolean);
+}
+
 // Патч для борьбы с "засыпанием" синтезатора
 setInterval(() => {
     if (!hasSpeechSupport) return;
@@ -221,47 +259,45 @@ Object.keys(icons).forEach(key => {
 });
 
 async function loadWordsFromSheet() {
-    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUqglLjSkwRZAwao-7Rx32nHa1f1MLxY_s_SJTL4ByUMk1Mtx3FRYZgbkoxnOzts3m5vOji5tg1s-6/pub?gid=0&single=true&output=csv" + "&cacheBuster=" + new Date().getTime();;
+    const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUqglLjSkwRZAwao-7Rx32nHa1f1MLxY_s_SJTL4ByUMk1Mtx3FRYZgbkoxnOzts3m5vOji5tg1s-6/pub?gid=0&single=true&output=csv" + "&cacheBuster=" + new Date().getTime();
 
-    // Добавляем прокси только для локальной разработки, если fetch не проходит
-    // Но для начала попробуем обычный запрос
     try {
         const response = await fetch(csvUrl);
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.text();
 
-        // Парсим CSV (учитываем переносы строк и запятые)
         const rows = data.split(/\r?\n/).filter(row => row.trim() !== "");
-        const contentRows = rows.slice(1); // Убираем заголовки
+        const contentRows = rows.slice(1);
 
         myWords = contentRows.map(row => {
-            // Разделяем по запятым, но игнорируем те, что внутри кавычек
             const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
 
-            const clean = (val) => val ? val.replace(/^"|"$/g, '').trim() : "";
+            return normalizeWord({
+                ru: cols[0],
+                ru_voice: cols[1],
+                he: cols[2],
+                he_voice: cols[3],
+                trans: cols[4]
+            });
+        }).filter(Boolean);
 
-            return {
-                ru: clean(cols[0]),
-                ru_voice: clean(cols[1]) || clean(cols[0]),
-                he: clean(cols[2]),
-                he_voice: clean(removeNiqqud(cols[2].trim())), //берем значения из he и чистим
-                trans: clean(cols[4])
-            };
-        }).filter(word => word.ru);
+        if (!myWords.length) throw new Error('Словарь пустой');
 
         console.log("Загружено слов:", myWords.length);
-
-        // ВЫЗЫВАЕМ ТВОЮ ФУНКЦИЮ ОТРИСОВКИ:
         initVocab();
-
-        // И обновляем отступы кнопок, раз таблица изменилась
         setTimeout(updateStickyOffset, 100);
 
     } catch (error) {
-        console.error("Ошибка:", error);
+        console.warn("Ошибка загрузки Google Sheet, переключаемся на локальный словарь:", error.message);
+        myWords = await loadLocalFallbackWords();
+        initVocab();
+        setTimeout(updateStickyOffset, 100);
+
         const body = document.getElementById('vocabBody');
         if (body) {
-            body.innerHTML = `<tr><td colspan="4" style="color:red;text-align:center;">Ошибка загрузки: ${error.message}</td></tr>`;
+            const infoRow = document.createElement('tr');
+            infoRow.innerHTML = '<td colspan="4" style="color:#b26a00;text-align:center;">Google Sheet недоступен, показан локальный словарь.</td>';
+            body.prepend(infoRow);
         }
     }
 }
