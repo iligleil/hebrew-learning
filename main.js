@@ -149,7 +149,20 @@ async function bootstrap() {
   updateStickyOffset();
 }
 
-document.addEventListener('DOMContentLoaded', bootstrap);
+let isBootstrapped = false;
+
+function bootstrapOnce() {
+  if (isBootstrapped) return;
+  isBootstrapped = true;
+  void bootstrap();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrapOnce, { once: true });
+} else {
+  bootstrapOnce();
+}
+
 window.addEventListener('DOMContentLoaded', updateStickyOffset);
 window.addEventListener('load', updateStickyOffset);
 window.addEventListener('resize', updateStickyOffset);
