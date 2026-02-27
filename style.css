@@ -691,15 +691,30 @@ input[type="range"] {
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 }
 
 .controls-main {
 	display: flex;
 	gap: 0.625rem;
 	flex: 0 1 auto;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	justify-content: center;
+}
+
+#prepositions .time-section {
+	overflow-x: auto;
+	padding-bottom: 0.5rem;
+}
+
+#prepositions .prep-table {
+	width: max-content;
+	min-width: 100%;
+}
+
+#prepositions .prep-table th,
+#prepositions .prep-table td {
+	white-space: nowrap;
 }
 
 .controls-secondary {
