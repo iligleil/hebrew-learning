@@ -104,8 +104,15 @@ h1 {
 .tab-button:hover {
 	background-color: var(--hover-blue);
 	color: var(--primary-blue);
-	transform: translateX(5px);
+	transform: none;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tab-button.active:hover,
+.tab-button.active:active {
+	background-color: var(--primary-blue);
+	color: white;
+	transform: none;
 }
 
 .tab-content {
@@ -823,8 +830,9 @@ input[type="range"] {
 button:focus-visible,
 input:focus-visible,
 th:focus-visible {
-	outline: 3px solid var(--primary-blue);
-	outline-offset: 2px;
+	outline: none;
+	box-shadow: 0 0 0 3px var(--primary-blue);
+	border-radius: 8px;
 }
 
 

@@ -12,6 +12,8 @@ import {
 } from './vocab-ui.js';
 import { APP_CONFIG } from './config.js';
 
+window.__HEBREW_MAIN_MODULE_LOADED = true;
+
 const state = {
   silentSource: null,
   isSpeaking: false,
