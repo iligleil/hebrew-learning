@@ -1,3 +1,5 @@
+import { APP_CONFIG } from './config.js';
+
 function removeNiqqud(text) {
   return text.replace(/[\u0591-\u05C7]/g, '');
 }
@@ -89,7 +91,7 @@ function parseWordsFromCsv(text) {
 }
 
 async function loadSampleWords() {
-  const response = await fetch('./words.sample.json');
+  const response = await fetch(APP_CONFIG.data.localFallbackPath);
   if (!response.ok) throw new Error('Не удалось загрузить локальный словарь');
 
   const data = await response.json();
@@ -99,9 +101,7 @@ async function loadSampleWords() {
 }
 
 export async function loadWords() {
-  const csvUrl =
-    'https://docs.google.com/spreadsheets/d/e/2PACX-1vTUqglLjSkwRZAwao-7Rx32nHa1f1MLxY_s_SJTL4ByUMk1Mtx3FRYZgbkoxnOzts3m5vOji5tg1s-6/pub?gid=0&single=true&output=csv' +
-    `&cacheBuster=${Date.now()}`;
+  const csvUrl = `${APP_CONFIG.data.googleCsvUrl}&${APP_CONFIG.data.cacheBusterParam}=${Date.now()}`;
 
   try {
     const response = await fetch(csvUrl);

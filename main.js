@@ -1,7 +1,16 @@
 import { openTab, updateStickyOffset } from './tabs.js';
 import { loadWords } from './vocab-data.js';
 import { createSpeechController, startSynthKeepAlive } from './speech.js';
-import { initVocab, shuffleTable, toggleColumn, highlightRow, unhighlightAll, renderIcons } from './vocab-ui.js';
+import {
+  initVocab,
+  shuffleTable,
+  toggleColumn,
+  highlightRow,
+  unhighlightAll,
+  renderIcons,
+  renderWeakRootPatterns,
+} from './vocab-ui.js';
+import { APP_CONFIG } from './config.js';
 
 const state = {
   silentSource: null,
@@ -24,12 +33,41 @@ const speech = createSpeechController({
   unhighlightAll,
 });
 
+
+function handleTabKeyboardNavigation(event) {
+  const buttons = [...document.querySelectorAll('.tab-button')];
+  const currentIndex = buttons.indexOf(event.currentTarget);
+  if (currentIndex < 0) return;
+
+  let nextIndex = currentIndex;
+  if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+    nextIndex = (currentIndex + 1) % buttons.length;
+  } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+    nextIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+  } else if (event.key !== 'Home' && event.key !== 'End') {
+    return;
+  }
+
+  if (event.key === 'Home') nextIndex = 0;
+  if (event.key === 'End') nextIndex = buttons.length - 1;
+
+  event.preventDefault();
+  buttons[nextIndex].focus();
+  openTab(buttons[nextIndex].dataset.tab, buttons[nextIndex], {
+    isSpeaking: () => state.isSpeaking,
+    stopSpeech: speech.stopSpeech,
+  });
+}
+
 function bindUIHandlers() {
   document.querySelectorAll('.tab-button').forEach((button) => {
     button.addEventListener('click', () => {
       const tabId = button.dataset.tab;
-      if (tabId) openTab(tabId, button, { isSpeaking: () => state.isSpeaking, stopSpeech: speech.stopSpeech });
+      if (tabId) {
+        openTab(tabId, button, { isSpeaking: () => state.isSpeaking, stopSpeech: speech.stopSpeech });
+      }
     });
+    button.addEventListener('keydown', handleTabKeyboardNavigation);
   });
 
   const audioControl = document.getElementById('audioControl');
@@ -83,6 +121,7 @@ function bindUIHandlers() {
 
 async function bootstrap() {
   renderIcons();
+  renderWeakRootPatterns();
   bindUIHandlers();
 
   try {
@@ -112,4 +151,4 @@ document.addEventListener('DOMContentLoaded', bootstrap);
 window.addEventListener('DOMContentLoaded', updateStickyOffset);
 window.addEventListener('load', updateStickyOffset);
 window.addEventListener('resize', updateStickyOffset);
-setTimeout(updateStickyOffset, 500);
+setTimeout(updateStickyOffset, APP_CONFIG.ui.stickyOffsetBootDelayMs);
