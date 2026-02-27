@@ -683,14 +683,14 @@ input[type="range"] {
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 }
 
 .controls-main {
 	display: flex;
 	gap: 0.625rem;
 	flex: 0 1 auto;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	justify-content: center;
 }
 
@@ -804,9 +804,31 @@ th:focus-visible {
 	outline-offset: 2px;
 }
 
+
+
+.prepositions-canvas {
+	width: min(100%, 100%);
+	overflow-x: auto;
+}
+
+.prepositions-canvas .time-section {
+	width: min(100%, 84.375rem);
+}
+
+.prepositions-canvas .prep-table {
+	min-width: 72rem;
+}
+
+.prepositions-canvas .cell-content {
+	white-space: nowrap;
+}
 @media (max-width: 900px) {
 	.main-layout {
 		flex-direction: column;
+	}
+
+	.main-container {
+		flex-wrap: wrap;
 	}
 
 	.side-menu {
@@ -830,4 +852,10 @@ th:focus-visible {
 	.content-area {
 		padding: 0.75rem;
 	}
+
+	.controls-row,
+	.controls-main {
+		flex-wrap: wrap;
+	}
 }
+
