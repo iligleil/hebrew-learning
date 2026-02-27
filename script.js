@@ -1,6 +1,10 @@
 (function () {
   // Legacy fallback for environments where ES modules are unavailable.
   if (window.__HEBREW_MAIN_MODULE_LOADED) return;
+  window.__HEBREW_LEGACY_APP_LOADED = true;
+
+  const GOOGLE_CSV_URL =
+    'https://docs.google.com/spreadsheets/d/e/2PACX-1vTUqglLjSkwRZAwao-7Rx32nHa1f1MLxY_s_SJTL4ByUMk1Mtx3FRYZgbkoxnOzts3m5vOji5tg1s-6/pub?gid=0&single=true&output=csv';
 
   const EMBEDDED_WORDS = [
     { ru: 'Привет', he: 'שלום', trans: 'шалом' },
@@ -31,6 +35,67 @@
       ru_voice: clean(rawWord.ru_voice) || ru,
       he_voice: clean(rawWord.he_voice) || he,
     };
+  }
+
+  function parseCsv(text) {
+    const rows = [];
+    let row = [];
+    let cell = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < text.length; i += 1) {
+      const char = text[i];
+      const nextChar = text[i + 1];
+
+      if (char === '"') {
+        if (inQuotes && nextChar === '"') {
+          cell += '"';
+          i += 1;
+        } else {
+          inQuotes = !inQuotes;
+        }
+        continue;
+      }
+
+      if (char === ',' && !inQuotes) {
+        row.push(cell);
+        cell = '';
+        continue;
+      }
+
+      if ((char === '\n' || char === '\r') && !inQuotes) {
+        if (char === '\r' && nextChar === '\n') i += 1;
+        row.push(cell);
+        if (row.some((value) => clean(value) !== '')) rows.push(row);
+        row = [];
+        cell = '';
+        continue;
+      }
+
+      cell += char;
+    }
+
+    row.push(cell);
+    if (row.some((value) => clean(value) !== '')) rows.push(row);
+    return rows;
+  }
+
+  function parseWordsFromCsv(text) {
+    const rows = parseCsv(text);
+    if (rows.length <= 1) return [];
+
+    return rows
+      .slice(1)
+      .map((columns) =>
+        normalizeWord({
+          ru: columns[0],
+          ru_voice: columns[1],
+          he: columns[2],
+          he_voice: columns[3],
+          trans: columns[4],
+        }),
+      )
+      .filter(Boolean);
   }
 
   function getHebrewVoice() {
@@ -184,6 +249,21 @@
   }
 
   async function loadLegacyWords() {
+    try {
+      const csvUrl = `${GOOGLE_CSV_URL}&cacheBuster=${Date.now()}`;
+      const response = await fetch(csvUrl);
+      if (!response.ok) throw new Error('google sheet unavailable');
+
+      const csv = await response.text();
+      const words = parseWordsFromCsv(csv);
+      if (words.length) {
+        state.words = words;
+        return 'Режим совместимости: загружены слова из Google Sheet.';
+      }
+    } catch (error) {
+      // no-op
+    }
+
     try {
       const response = await fetch('./words.sample.json');
       if (!response.ok) throw new Error('local words unavailable');
