@@ -13,6 +13,13 @@
     { ru: 'Дом', he: 'בַּיִת', trans: 'баит' },
   ];
 
+  const fallbackState = {
+    words: [],
+    isSpeaking: false,
+    isRandom: false,
+    currentIndex: 0,
+  };
+
   function clean(value) {
     return typeof value === 'string' ? value.trim() : '';
   }
@@ -127,6 +134,100 @@
     });
 
     body.replaceChildren(noticeRow, ...rows);
+    fallbackState.words = words;
+  }
+
+  function getWordText(word) {
+    const he = clean(word.he);
+    const ru = clean(word.ru);
+    if (!he && !ru) return '';
+    return ru ? `${he}. ${ru}` : he;
+  }
+
+  function updateRandomButton() {
+    const randomControl = document.getElementById('randomControl');
+    if (!randomControl) return;
+
+    randomControl.innerText = fallbackState.isRandom
+      ? '🎲 Случайный порядок: ВКЛ'
+      : '🎲 Случайный порядок: ВЫКЛ';
+    randomControl.classList.toggle('active', fallbackState.isRandom);
+  }
+
+  function stopFallbackSpeech() {
+    fallbackState.isSpeaking = false;
+    window.speechSynthesis.cancel();
+
+    const audioControl = document.getElementById('audioControl');
+    if (!audioControl) return;
+    audioControl.innerText = '▶ Озвучить всё';
+    audioControl.classList.remove('active');
+  }
+
+  function speakNextFallbackWord() {
+    if (!fallbackState.isSpeaking) return;
+    if (!fallbackState.words.length) {
+      stopFallbackSpeech();
+      return;
+    }
+
+    const word = fallbackState.words[fallbackState.currentIndex];
+    const text = getWordText(word);
+    if (!text) {
+      stopFallbackSpeech();
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.onend = () => {
+      if (!fallbackState.isSpeaking) return;
+
+      if (fallbackState.isRandom) {
+        fallbackState.currentIndex = Math.floor(Math.random() * fallbackState.words.length);
+      } else {
+        fallbackState.currentIndex = (fallbackState.currentIndex + 1) % fallbackState.words.length;
+      }
+
+      setTimeout(speakNextFallbackWord, 500);
+    };
+    utterance.onerror = stopFallbackSpeech;
+
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function toggleFallbackSpeech() {
+    const audioControl = document.getElementById('audioControl');
+    if (!audioControl) return;
+
+    if (fallbackState.isSpeaking) {
+      stopFallbackSpeech();
+      return;
+    }
+
+    if (!fallbackState.words.length) return;
+
+    fallbackState.isSpeaking = true;
+    audioControl.innerText = '■ Остановить';
+    audioControl.classList.add('active');
+    speakNextFallbackWord();
+  }
+
+  function bindFallbackControls() {
+    const audioControl = document.getElementById('audioControl');
+    if (audioControl) {
+      audioControl.addEventListener('click', toggleFallbackSpeech);
+    }
+
+    const randomControl = document.getElementById('randomControl');
+    if (randomControl) {
+      randomControl.addEventListener('click', () => {
+        fallbackState.isRandom = !fallbackState.isRandom;
+        updateRandomButton();
+      });
+    }
+
+    updateRandomButton();
   }
 
   function scheduleVocabFallback() {
@@ -146,6 +247,7 @@
 
     renderIcons();
     bindTabs();
+    bindFallbackControls();
     scheduleVocabFallback();
   });
 })();
