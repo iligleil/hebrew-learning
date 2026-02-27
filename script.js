@@ -32,7 +32,57 @@ document.addEventListener('DOMContentLoaded', () => {
             volLabel.textContent = Math.round(currentVolume * 100) + '%';
         });
     }
+
+    bindUIHandlers();
 });
+
+function bindUIHandlers() {
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const tabId = button.dataset.tab;
+            if (tabId) openTab(tabId, button);
+        });
+    });
+
+    const audioControl = document.getElementById('audioControl');
+    if (audioControl) {
+        audioControl.addEventListener('click', () => {
+            resumeAudioContext();
+            toggleSpeech();
+        });
+    }
+
+    const randomControl = document.getElementById('randomControl');
+    if (randomControl) {
+        randomControl.addEventListener('click', toggleRandom);
+    }
+
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    if (shuffleBtn) {
+        shuffleBtn.addEventListener('click', shuffleTable);
+    }
+
+    document.querySelectorAll('[data-column-toggle]').forEach(header => {
+        header.addEventListener('click', () => {
+            const idx = Number(header.dataset.columnToggle);
+            if (Number.isInteger(idx)) toggleColumn(idx);
+        });
+    });
+
+    const vocabBody = document.getElementById('vocabBody');
+    if (vocabBody) {
+        vocabBody.addEventListener('click', (event) => {
+            const button = event.target.closest('.speak-one-btn');
+            if (!button) return;
+
+            const index = Number(button.dataset.index);
+            if (!Number.isInteger(index)) return;
+
+            resumeAudioContext();
+            speakOne(index);
+        });
+    }
+}
 
 const icons = {
     'fem-s': '🤦', // Фейспалм женщина
@@ -70,11 +120,11 @@ function resumeAudioContext() {
     console.log("Бесшумный генератор запущен (CPU-friendly)");
 }
 
-function openTab(tabId) {
+function openTab(tabId, tabButton) {
     document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
     document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
-    event.currentTarget.classList.add('active');
+    if (tabButton) tabButton.classList.add('active');
     if (tabId !== 'vocabulary' && isSpeaking) toggleSpeech(); // Стоп при уходе со вкладки
     setTimeout(updateStickyOffset, 10);
 }
@@ -162,7 +212,7 @@ function shuffleTable() {
 			<td style="border: 1px solid #ccc; padding: 10px; ${blurStates[1] ? 'filter: blur(5px);' : ''}">${word.trans}</td>
 			<td style="border: 1px solid #ccc; padding: 10px; ${blurStates[2] ? 'filter: blur(5px);' : ''}">${word.ru}</td>
 			<td style="border: 1px solid #ccc; padding: 10px; text-align: center;">
-				<button onclick="resumeAudioContext(); speakOne(${index})" style="cursor: pointer; background: none; border: none; font-size: 20px;">🔊</button>
+				<button class="speak-one-btn" data-index="${index}" style="cursor: pointer; background: none; border: none; font-size: 20px;" aria-label="Озвучить слово">🔊</button>
 			</td>
 		`;
         container.appendChild(row);
@@ -196,7 +246,7 @@ function initVocab() {
 			<td class="hebrew-text">${word.he}</td>
 			<td style="font-size: 16px;">${word.trans}</td>
 			<td style="font-size: 16px;">${word.ru}</td>
-			<td><button onclick="speakOne(${index})" style="cursor: pointer; background: none; border: none; font-size: 20px;">🔊</button></td>
+			<td><button class="speak-one-btn" data-index="${index}" style="cursor: pointer; background: none; border: none; font-size: 20px;" aria-label="Озвучить слово">🔊</button></td>
 		</tr>`;
         body.innerHTML += row;
     });
