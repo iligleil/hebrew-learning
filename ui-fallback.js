@@ -18,6 +18,7 @@
     isSpeaking: false,
     isRandom: false,
     currentIndex: 0,
+    currentLang: 'he',
   };
 
   function clean(value) {
@@ -85,7 +86,22 @@
     });
   }
 
+  function getHebrewVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    return (
+      voices.find(
+        (voice) =>
+          (voice.lang === 'he-IL' || voice.lang.toLowerCase().startsWith('he')) &&
+          (voice.name.includes('Hila') || voice.name.includes('Female') || voice.name.includes('Google')),
+      ) || voices.find((voice) => voice.lang === 'he-IL' || voice.lang.toLowerCase().startsWith('he'))
+    );
+  }
+
   async function loadFallbackWords() {
+    if (window.location.protocol === 'file:') {
+      return embeddedFallbackWords.map(normalizeWord).filter(Boolean);
+    }
+
     try {
       const response = await fetch('./words.sample.json');
       if (!response.ok) throw new Error('Local words are unavailable');
@@ -137,13 +153,6 @@
     fallbackState.words = words;
   }
 
-  function getWordText(word) {
-    const he = clean(word.he);
-    const ru = clean(word.ru);
-    if (!he && !ru) return '';
-    return ru ? `${he}. ${ru}` : he;
-  }
-
   function updateRandomButton() {
     const randomControl = document.getElementById('randomControl');
     if (!randomControl) return;
@@ -172,14 +181,14 @@
     }
 
     const word = fallbackState.words[fallbackState.currentIndex];
-    const text = getWordText(word);
-    if (!text) {
+    const hebrewText = clean(word.he);
+    const russianText = clean(word.ru);
+    if (!hebrewText && !russianText) {
       stopFallbackSpeech();
       return;
     }
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.onend = () => {
+    const prepareNext = () => {
       if (!fallbackState.isSpeaking) return;
 
       if (fallbackState.isRandom) {
@@ -188,9 +197,47 @@
         fallbackState.currentIndex = (fallbackState.currentIndex + 1) % fallbackState.words.length;
       }
 
+      fallbackState.currentLang = 'he';
       setTimeout(speakNextFallbackWord, 500);
     };
-    utterance.onerror = stopFallbackSpeech;
+
+    const text = fallbackState.currentLang === 'he' ? hebrewText : russianText;
+    if (!text) {
+      if (fallbackState.currentLang === 'he') {
+        fallbackState.currentLang = 'ru';
+        speakNextFallbackWord();
+      } else {
+        prepareNext();
+      }
+      return;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    if (fallbackState.currentLang === 'he') {
+      utterance.lang = 'he-IL';
+      utterance.voice = getHebrewVoice() || null;
+    } else {
+      utterance.lang = 'ru-RU';
+    }
+
+    utterance.onend = () => {
+      if (!fallbackState.isSpeaking) return;
+
+      if (fallbackState.currentLang === 'he') {
+        fallbackState.currentLang = 'ru';
+        speakNextFallbackWord();
+      } else {
+        prepareNext();
+      }
+    };
+    utterance.onerror = () => {
+      if (fallbackState.currentLang === 'he') {
+        fallbackState.currentLang = 'ru';
+        speakNextFallbackWord();
+      } else {
+        prepareNext();
+      }
+    };
 
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
@@ -208,6 +255,7 @@
     if (!fallbackState.words.length) return;
 
     fallbackState.isSpeaking = true;
+    fallbackState.currentLang = 'he';
     audioControl.innerText = '■ Остановить';
     audioControl.classList.add('active');
     speakNextFallbackWord();
