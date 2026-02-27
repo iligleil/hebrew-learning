@@ -280,7 +280,7 @@
 
   function scheduleVocabFallback() {
     setTimeout(async () => {
-      if (window.__HEBREW_MAIN_MODULE_LOADED) return;
+      if (window.__HEBREW_MAIN_MODULE_LOADED || window.__HEBREW_LEGACY_APP_LOADED) return;
       const body = document.getElementById('vocabBody');
       if (!body || body.querySelector('tr')) return;
       const words = await loadFallbackWords();
@@ -289,7 +289,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    if (window.__HEBREW_MAIN_MODULE_LOADED) {
+    if (window.__HEBREW_MAIN_MODULE_LOADED || window.__HEBREW_LEGACY_APP_LOADED) {
       return;
     }
 
