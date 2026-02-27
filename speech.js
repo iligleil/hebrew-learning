@@ -1,10 +1,12 @@
+import { APP_CONFIG } from './config.js';
+
 export function startSynthKeepAlive() {
   setInterval(() => {
     if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
       window.speechSynthesis.pause();
       window.speechSynthesis.resume();
     }
-  }, 10000);
+  }, APP_CONFIG.speech.keepAliveIntervalMs);
 }
 
 export function createSpeechController({ state, getWords, highlightRow, unhighlightAll }) {
@@ -65,8 +67,8 @@ export function createSpeechController({ state, getWords, highlightRow, unhighli
     state.currentMsgHe = new SpeechSynthesisUtterance(hebrewSpeechText);
     state.currentMsgHe.lang = 'he-IL';
     state.currentMsgHe.voice = getHebrewVoice();
-    state.currentMsgHe.pitch = 1.6;
-    state.currentMsgHe.rate = 0.85;
+    state.currentMsgHe.pitch = APP_CONFIG.speech.hebrewPitch;
+    state.currentMsgHe.rate = APP_CONFIG.speech.hebrewRate;
     state.currentMsgHe.volume = state.currentVolume;
 
     const speechText = word.ru_voice || word.ru;
@@ -88,7 +90,7 @@ export function createSpeechController({ state, getWords, highlightRow, unhighli
         if (state.currentIndex >= words.length) state.currentIndex = 0;
       }
 
-      setTimeout(speakLoop, 1000);
+      setTimeout(speakLoop, APP_CONFIG.speech.loopDelayMs);
     };
 
     if (isReverse) {
@@ -119,7 +121,7 @@ export function createSpeechController({ state, getWords, highlightRow, unhighli
       }
 
       if (silencePlayer) {
-        silencePlayer.volume = 0.01;
+        silencePlayer.volume = APP_CONFIG.speech.silenceLoopVolume;
         silencePlayer.play().catch(() => {});
       }
 
@@ -148,7 +150,7 @@ export function createSpeechController({ state, getWords, highlightRow, unhighli
 
     const silencePlayer = document.getElementById('silenceLoop');
     if (silencePlayer?.paused) {
-      silencePlayer.volume = 0.01;
+      silencePlayer.volume = APP_CONFIG.speech.silenceLoopVolume;
       silencePlayer.play().catch(() => {});
     }
 
@@ -163,8 +165,8 @@ export function createSpeechController({ state, getWords, highlightRow, unhighli
     state.currentMsgHe = new SpeechSynthesisUtterance(hebrewSpeechText);
     state.currentMsgHe.lang = 'he-IL';
     state.currentMsgHe.voice = getHebrewVoice();
-    state.currentMsgHe.pitch = 1.6;
-    state.currentMsgHe.rate = 0.85;
+    state.currentMsgHe.pitch = APP_CONFIG.speech.hebrewPitch;
+    state.currentMsgHe.rate = APP_CONFIG.speech.hebrewRate;
     state.currentMsgHe.volume = state.currentVolume;
 
     const speechText = word.ru_voice || word.ru;
@@ -173,14 +175,14 @@ export function createSpeechController({ state, getWords, highlightRow, unhighli
     state.currentMsgRu.volume = state.currentVolume;
 
     const finalizeOne = () => {
-      setTimeout(unhighlightAll, 500);
+      setTimeout(unhighlightAll, APP_CONFIG.ui.singleWordUnhighlightDelayMs);
       if (!state.isSpeaking) {
         setTimeout(() => {
           if (!state.synth.speaking && silencePlayer) {
             silencePlayer.pause();
             silencePlayer.currentTime = 0;
           }
-        }, 1000);
+        }, APP_CONFIG.ui.silenceStopDelayMs);
       }
     };
 
