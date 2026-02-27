@@ -233,9 +233,22 @@
     updateRandomButton();
   }
 
-  document.addEventListener('DOMContentLoaded', async () => {
+  let isBootstrapped = false;
+
+  async function bootstrapLegacy() {
+    if (isBootstrapped) return;
+    isBootstrapped = true;
+
     bindControls();
     const sourceLabel = await loadLegacyWords();
     renderLegacyWords(sourceLabel);
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      void bootstrapLegacy();
+    }, { once: true });
+  } else {
+    void bootstrapLegacy();
+  }
 })();
