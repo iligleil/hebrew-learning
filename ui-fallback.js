@@ -289,12 +289,13 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
+    renderIcons();
+    bindTabs();
+
     if (window.__HEBREW_MAIN_MODULE_LOADED || window.__HEBREW_LEGACY_APP_LOADED) {
       return;
     }
 
-    renderIcons();
-    bindTabs();
     bindFallbackControls();
     scheduleVocabFallback();
   });
