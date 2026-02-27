@@ -44,18 +44,9 @@ function bindUIHandlers() {
         });
     });
 
-    const audioControl = document.getElementById('audioControl');
-    if (audioControl) {
-        audioControl.addEventListener('click', () => {
-            resumeAudioContext();
-            toggleSpeech();
-        });
-    }
-
-    const randomControl = document.getElementById('randomControl');
-    if (randomControl) {
-        randomControl.addEventListener('click', toggleRandom);
-    }
+    // audioControl и randomControl уже имеют inline onclick в разметке.
+    // Не дублируем обработчики здесь, иначе клик срабатывает дважды
+    // (включение и мгновенное выключение).
 
     const shuffleBtn = document.getElementById('shuffleBtn');
     if (shuffleBtn) {
