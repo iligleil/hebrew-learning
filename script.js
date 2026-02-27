@@ -13,6 +13,7 @@
     isSpeaking: false,
     isRandom: false,
     currentIndex: 0,
+    currentVolume: 1,
   };
 
   function clean(value) {
@@ -87,10 +88,12 @@
 
     const firstUtterance = new SpeechSynthesisUtterance(firstText);
     firstUtterance.lang = firstLang;
+    firstUtterance.volume = state.currentVolume;
     if (firstLang === 'he-IL') firstUtterance.voice = getHebrewVoice();
 
     const secondUtterance = new SpeechSynthesisUtterance(secondText);
     secondUtterance.lang = secondLang;
+    secondUtterance.volume = state.currentVolume;
     if (secondLang === 'he-IL') secondUtterance.voice = getHebrewVoice();
 
     firstUtterance.onend = () => window.speechSynthesis.speak(secondUtterance);
@@ -228,6 +231,17 @@
     const shuffleBtn = document.getElementById('shuffleBtn');
     if (shuffleBtn) {
       shuffleBtn.addEventListener('click', shuffleWords);
+    }
+
+    const volInput = document.getElementById('volumeRange');
+    const volLabel = document.getElementById('volumeValue');
+    if (volInput && volLabel) {
+      state.currentVolume = parseFloat(volInput.value) || 1;
+      volLabel.textContent = `${Math.round(state.currentVolume * 100)}%`;
+      volInput.addEventListener('input', (event) => {
+        state.currentVolume = parseFloat(event.target.value);
+        volLabel.textContent = `${Math.round(state.currentVolume * 100)}%`;
+      });
     }
 
     updateRandomButton();
