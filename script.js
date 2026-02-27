@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    renderWeakRootPatterns();
     bindUIHandlers();
 });
 
@@ -42,11 +43,23 @@ function bindUIHandlers() {
             const tabId = button.dataset.tab;
             if (tabId) openTab(tabId, button);
         });
+        button.addEventListener('keydown', handleTabKeyboardNavigation);
     });
 
-    // audioControl и randomControl уже имеют inline onclick в разметке.
-    // Не дублируем обработчики здесь, иначе клик срабатывает дважды
-    // (включение и мгновенное выключение).
+
+
+    const audioControl = document.getElementById('audioControl');
+    if (audioControl) {
+        audioControl.addEventListener('click', () => {
+            resumeAudioContext();
+            toggleSpeech();
+        });
+    }
+
+    const randomControl = document.getElementById('randomControl');
+    if (randomControl) {
+        randomControl.addEventListener('click', toggleRandom);
+    }
 
     const shuffleBtn = document.getElementById('shuffleBtn');
     if (shuffleBtn) {
@@ -112,12 +125,67 @@ function resumeAudioContext() {
 }
 
 function openTab(tabId, tabButton) {
-    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(tabId).classList.add('active');
-    if (tabButton) tabButton.classList.add('active');
-    if (tabId !== 'vocabulary' && isSpeaking) toggleSpeech(); // Стоп при уходе со вкладки
+    const tabs = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-button');
+
+    tabs.forEach(tab => {
+        const isActive = tab.id === tabId;
+        tab.classList.toggle('active', isActive);
+        tab.setAttribute('aria-hidden', String(!isActive));
+    });
+
+    buttons.forEach(btn => {
+        const isActive = btn === tabButton;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-selected', String(isActive));
+        btn.setAttribute('tabindex', isActive ? '0' : '-1');
+    });
+
+    const panel = document.getElementById(tabId);
+    if (panel) panel.focus({ preventScroll: true });
+
+    if (tabId !== 'vocabulary' && isSpeaking) toggleSpeech();
     setTimeout(updateStickyOffset, 10);
+}
+
+function handleTabKeyboardNavigation(event) {
+    const buttons = [...document.querySelectorAll('.tab-button')];
+    const currentIndex = buttons.indexOf(event.currentTarget);
+    if (currentIndex < 0) return;
+
+    let nextIndex = currentIndex;
+    if (event.key === 'ArrowDown' || event.key === 'ArrowRight') {
+        nextIndex = (currentIndex + 1) % buttons.length;
+    } else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') {
+        nextIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+    } else if (event.key !== 'Home' && event.key !== 'End') {
+        return;
+    }
+
+    if (event.key === 'Home') nextIndex = 0;
+    if (event.key === 'End') nextIndex = buttons.length - 1;
+
+    event.preventDefault();
+    buttons[nextIndex].focus();
+    openTab(buttons[nextIndex].dataset.tab, buttons[nextIndex]);
+}
+
+function renderWeakRootPatterns() {
+    const template = document.getElementById('weak-root-pattern-template');
+    if (!template) return;
+
+    document.querySelectorAll('.weak-root-pattern').forEach((node) => {
+        const fragment = template.content.cloneNode(true);
+        const endingNode = fragment.querySelector('.weak-ending');
+        const prefixNode = fragment.querySelector('.weak-prefix');
+        const ending = node.dataset.ending || 'ִים';
+        const prefix = node.dataset.prefix || '□';
+
+        if (endingNode) endingNode.textContent = ending;
+        if (prefixNode) prefixNode.textContent = prefix;
+
+        node.appendChild(fragment);
+    });
 }
 
 Object.keys(icons).forEach(key => {
