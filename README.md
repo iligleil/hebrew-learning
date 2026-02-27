@@ -2,6 +2,15 @@
 
 Статический учебный веб‑проект по ивриту: таблицы глаголов, предлоги и словарь с озвучкой.
 
+## Версия Node.js
+
+Проект зафиксирован на Node `20.18.0` (см. `.nvmrc`).
+
+```bash
+nvm use
+node -v
+```
+
 ## Как открыть проект
 
 Проект без сборки и бэкенда.
@@ -16,6 +25,16 @@
 - Основной источник: публичный CSV Google Sheets.
 - При сетевой ошибке/недоступности Google автоматически используется локальный fallback: `words.sample.json`.
 - Нормализация данных выполняется в `vocab-data.js` (валидируются обязательные поля `ru` и `he`).
+
+### Конфигурируемый data-source
+
+Источник словаря можно переключать без правки кода:
+
+- `APP_CONFIG.data.sourceMode = 'auto'` — сначала Google, потом fallback.
+- `APP_CONFIG.data.sourceMode = 'local'` — только локальный словарь.
+- `APP_CONFIG.data.sourceMode = 'google-only'` — только Google (ошибка без fallback).
+
+Также можно указать `?dataSource=local|auto|google-only` в URL.
 
 ## Ограничения озвучки (Web Speech API)
 
@@ -38,7 +57,7 @@
 - `speech.js` — озвучка «всё/одно», random-режим.
 - `config.js` — централизованные настройки (интервалы/скорости/blur/cache-buster).
 - `words.sample.json` — локальный fallback словарь.
-- `script.js` — legacy-файл (не используется страницей, оставлен как историческая версия).
+- `script.js` — тонкий legacy-слой (без бизнес-логики).
 
 ## Ручные контрольные сценарии (smoke-check)
 
@@ -66,9 +85,11 @@
 Команды:
 
 ```bash
+npm ci
 npm run lint
 npm run lint:js
 npm run lint:css
 npm run format:check
 npm run format
+npm test
 ```

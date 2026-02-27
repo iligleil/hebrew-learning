@@ -58,7 +58,7 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    if (window.__HEBREW_MAIN_MODULE_LOADED || window.__HEBREW_LEGACY_APP_LOADED) {
+    if (window.__HEBREW_MAIN_MODULE_LOADED) {
       return;
     }
 
