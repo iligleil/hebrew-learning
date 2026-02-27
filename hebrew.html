@@ -773,6 +773,28 @@
          </div>
       </template>
       <script defer src="ui-fallback.js"></script>
-      <script type="module" src="main.js"></script>
+      <script>
+         (function () {
+            function loadLegacyApp() {
+               if (window.__HEBREW_LEGACY_APP_LOADED) return;
+               window.__HEBREW_LEGACY_APP_LOADED = true;
+               var legacyScript = document.createElement('script');
+               legacyScript.defer = true;
+               legacyScript.src = 'script.js';
+               document.body.appendChild(legacyScript);
+            }
+
+            if (window.location.protocol === 'file:') {
+               loadLegacyApp();
+               return;
+            }
+
+            var moduleScript = document.createElement('script');
+            moduleScript.type = 'module';
+            moduleScript.src = 'main.js';
+            moduleScript.onerror = loadLegacyApp;
+            document.body.appendChild(moduleScript);
+         })();
+      </script>
    </body>
 </html>
