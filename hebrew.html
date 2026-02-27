@@ -776,11 +776,18 @@
       <script>
          (function () {
             function loadLegacyApp() {
-               if (window.__HEBREW_LEGACY_APP_LOADED) return;
-               window.__HEBREW_LEGACY_APP_LOADED = true;
+               if (window.__HEBREW_LEGACY_APP_LOADED || window.__HEBREW_LEGACY_APP_LOADING) return;
+               window.__HEBREW_LEGACY_APP_LOADING = true;
                var legacyScript = document.createElement('script');
                legacyScript.defer = true;
                legacyScript.src = 'script.js';
+               legacyScript.onload = function () {
+                  window.__HEBREW_LEGACY_APP_LOADED = true;
+                  window.__HEBREW_LEGACY_APP_LOADING = false;
+               };
+               legacyScript.onerror = function () {
+                  window.__HEBREW_LEGACY_APP_LOADING = false;
+               };
                document.body.appendChild(legacyScript);
             }
 
